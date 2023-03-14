@@ -1,7 +1,7 @@
 # Личный проект «Readme»
 
 * Студент: [Галина Соцкова](https://up.htmlacademy.ru/nodejs-2/3/user/2071699).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Вохмянин](https://htmlacademy.ru/profile/id530823).
 
 ---
 
