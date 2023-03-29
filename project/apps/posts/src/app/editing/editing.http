@@ -1,0 +1,46 @@
+# Create a new post
+POST http://localhost:3333/api/post/create HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Title1",
+  "video": "video/1.mp3",
+  "tags": ["video 1"],
+  "postType": "video",
+  "postState": "public",
+  "isRepost": false,
+  "userId": "1"
+}
+
+###
+
+# Get post by ID
+GET http://localhost:3333/api/post/a001496f-14f0-43e8-9086-c26ad30ded89 HTTP/1.1
+Content-Type: application/json
+###
+
+# Get post by TITLE
+GET http://localhost:3333/api/post/title/Title21 HTTP/1.1
+Content-Type: application/json
+###
+
+# Delete post by ID
+DELETE  http://localhost:3333/api/post/delete/a001496f-14f0-43e8-9086-c26ad30ded89 HTTP/1.1
+Content-Type: application/json
+###
+
+# Update post
+PATCH  http://localhost:3333/api/post/edit/754b3609-c435-49ae-9fe1-48b265b6a7a2 HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Title 21",
+  "video": "video/1.mp3",
+  "tags": ["video 1"],
+  "postType": "video",
+  "postState": "public",
+  "isRepost": false,
+  "userId": "1"
+}
+
+###
