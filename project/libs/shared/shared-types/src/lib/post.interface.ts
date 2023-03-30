@@ -17,4 +17,5 @@ export interface Post {
   postState: PostState;
   isRepost: boolean;
   userId: string;
+  originUserId?: string;
 }

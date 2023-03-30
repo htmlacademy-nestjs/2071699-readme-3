@@ -1,0 +1,9 @@
+# Get posts list
+GET http://localhost:3333/api/posts HTTP/1.1
+Content-Type: application/json
+###
+
+# Get posts sort
+GET http://localhost:3333/api/posts/sort HTTP/1.1
+Content-Type: application/json
+###

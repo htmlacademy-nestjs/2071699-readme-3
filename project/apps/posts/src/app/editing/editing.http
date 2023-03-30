@@ -3,7 +3,7 @@ POST http://localhost:3333/api/post/create HTTP/1.1
 Content-Type: application/json
 
 {
-  "title": "Title1",
+  "title": "Title2",
   "video": "video/1.mp3",
   "tags": ["video 1"],
   "postType": "video",
@@ -15,22 +15,22 @@ Content-Type: application/json
 ###
 
 # Get post by ID
-GET http://localhost:3333/api/post/a001496f-14f0-43e8-9086-c26ad30ded89 HTTP/1.1
+GET http://localhost:3333/api/post/1ba24123-f7ae-442a-8f6f-d39833afb5d1 HTTP/1.1
 Content-Type: application/json
 ###
 
 # Get post by TITLE
-GET http://localhost:3333/api/post/title/Title21 HTTP/1.1
+GET http://localhost:3333/api/post/title/Title1 HTTP/1.1
 Content-Type: application/json
 ###
 
 # Delete post by ID
-DELETE  http://localhost:3333/api/post/delete/a001496f-14f0-43e8-9086-c26ad30ded89 HTTP/1.1
+DELETE  http://localhost:3333/api/post/delete/1ba24123-f7ae-442a-8f6f-d39833afb5d1 HTTP/1.1
 Content-Type: application/json
 ###
 
 # Update post
-PATCH  http://localhost:3333/api/post/edit/754b3609-c435-49ae-9fe1-48b265b6a7a2 HTTP/1.1
+PATCH  http://localhost:3333/api/post/edit/1ba24123-f7ae-442a-8f6f-d39833afb5d1 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -43,4 +43,12 @@ Content-Type: application/json
   "userId": "1"
 }
 
+###
+#  Repost by ID
+POST  http://localhost:3333/api/post/repost/512ea49a-38a8-4703-8f2a-9cb60883bb93 HTTP/1.1
+Content-Type: application/json
+
+{
+ "userId": "88"
+}
 ###

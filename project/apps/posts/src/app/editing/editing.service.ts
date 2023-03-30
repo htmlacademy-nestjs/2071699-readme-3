@@ -2,7 +2,11 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { BlogPostMemoryRepository } from '../blog-post/blog-post-memory.repository';
 import { BlogPostEntity } from '../blog-post/blog-post.entity';
-import { POST_NOT_FOUND } from './editing.constant';
+import { POST_NOT_FOUND } from '@project/shared/shared-types';
+
+type OriginUserId = {
+  userId: string;
+  };
 
 
 @Injectable()
@@ -61,4 +65,22 @@ export class EditingService {
 
    return this.blogPostRepository.update(id, postEntity);
   }
+
+  public async repost(id: string, originUserId: OriginUserId) {
+    const existPost = await this.blogPostRepository.findById(id);
+
+     if (!existPost) {
+          throw new NotFoundException(POST_NOT_FOUND);
+        }
+        const blogPost = {
+          ...existPost,
+          isRepost: true,
+          originUserId: existPost.userId,
+          userId: originUserId.userId};
+
+        const postEntity = await new BlogPostEntity(blogPost)
+
+        return this.blogPostRepository
+          .create(postEntity);
+      }
 }

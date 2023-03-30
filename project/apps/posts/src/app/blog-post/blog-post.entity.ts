@@ -16,6 +16,7 @@ export class BlogPostEntity implements Post {
   public postState: PostState;
   public isRepost: boolean;
   public userId: string;
+  public originUserId: string;
 
  constructor(blogPost: Post) {
     this.fillEntity(blogPost);
@@ -41,6 +42,7 @@ export class BlogPostEntity implements Post {
     this.postState = blogPost.postState;
     this.isRepost = blogPost.isRepost;
     this.userId = blogPost.userId;
+    this.originUserId = blogPost.originUserId;
   }
 
 

@@ -4,6 +4,11 @@ import { fillObject } from '@project/util/util-core';
 import { PostRdo } from './rdo/post.rdo';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { EditingService } from './editing.service';
+import { RepostRdo } from './rdo/repost.rdo';
+
+type OriginUserId = {
+  userId: string;
+  };
 
 @ApiTags('editing')
 @Controller('post')
@@ -66,6 +71,19 @@ export class EditingController {
   @Delete('delete/:id')
   public async delete(@Param('id') id: string) {
     await this.editService.deletePostId(id);
+  }
+
+
+  @ApiResponse({
+
+    type: RepostRdo,
+    status: HttpStatus.OK,
+    description: 'Repost'
+  })
+  @Post('repost/:id')
+  public async repost(@Param('id') id: string, userId: OriginUserId) {
+    const existPost = await this.editService.repost(id, userId);
+    return fillObject(RepostRdo, existPost);
   }
 }
 

@@ -34,6 +34,15 @@ export class BlogPostMemoryRepository implements CRUDRepository<BlogPostEntity, 
     return { ...existPost};
   }
 
+  public async findAll(): Promise<Post[]> {
+    const existPost = Object.values(this.repository);
+  if (! existPost) {
+    return null;
+  }
+
+  return [ ...existPost];
+  }
+
   public async destroy(id: string): Promise<void> {
     delete this.repository[id];
   }

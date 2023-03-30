@@ -1,6 +1,5 @@
-export interface Comment {
+export interface Like {
   _id?: string;
   postId: string;
-  text: string;
   userId: string;
 }
