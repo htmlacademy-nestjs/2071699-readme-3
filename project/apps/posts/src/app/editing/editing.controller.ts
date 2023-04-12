@@ -6,7 +6,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { EditingService } from './editing.service';
 import { RepostRdo } from './rdo/repost.rdo';
 
-type OriginUserId = {
+type NewUserId = {
   userId: string;
   };
 
@@ -36,7 +36,7 @@ export class EditingController {
   })
   @Get(':id')
   public async showPostId(@Param('id') id: string) {
-    const existPost = await this.editService.getPostId(id);
+    const existPost = await this.editService.getPostId(Number(id));
     return fillObject(PostRdo, existPost);
   }
 
@@ -58,7 +58,7 @@ export class EditingController {
   })
   @Patch('edit/:id')
   public async edit(@Param('id') id: string, @Body() dto: CreatePostDto) {
-    const existPost = await this.editService.updatePostId(id, dto);
+    const existPost = await this.editService.updatePostId(Number(id), dto);
     return fillObject(PostRdo, existPost);
   }
 
@@ -70,7 +70,7 @@ export class EditingController {
   })
   @Delete('delete/:id')
   public async delete(@Param('id') id: string) {
-    await this.editService.deletePostId(id);
+    await this.editService.deletePostId(Number(id));
   }
 
 
@@ -81,8 +81,8 @@ export class EditingController {
     description: 'Repost'
   })
   @Post('repost/:id')
-  public async repost(@Param('id') id: string, userId: OriginUserId) {
-    const existPost = await this.editService.repost(id, userId);
+  public async repost(@Param('id') id: string, @Body() newUserId: NewUserId) {
+    const existPost = await this.editService.repost(Number(id), newUserId.userId);
     return fillObject(RepostRdo, existPost);
   }
 }

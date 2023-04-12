@@ -9,33 +9,87 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
   constructor(private readonly prisma: PrismaService) {}
 
   public async create(item: BlogPostEntity): Promise<Post> {
-    const entityData =  {...item.toObject(),
-      postType: item.toObject().postType.toString(),
-         postState:item.toObject().postState.toString(),
-         isRepost: item.toObject().isRepost.toString()}
+    const entityData = item.toObject()
 
     const postNew = await this.prisma.post.create({
       data: {
         ...entityData,
-        comments: {
-          connect: []
-        },
+        postType: String(entityData.postType),
+        postState: String(entityData.postState),
         tags: {
           connect: entityData.tags
             .map(({ tagId }) => ({ tagId }))
         }
       },
       include: {
-        comments: true,
         tags: true,
       }
     });
     return {...postNew,
            postType: PostType[postNew.postType],
-           postState: PostState[postNew.postState],
-           isRepost: postNew.isRepost === 'true'? true :false
+           postState: PostState[postNew.postState]
           }
   }
 
 
+  public async destroy(postId: number): Promise<void> {
+    await this.prisma.post.delete({
+      where: {
+        postId,
+      }
+    });
+  }
+
+  public async findById(postId: number): Promise<Post | null> {
+    const post = await this.prisma.post.findFirst({
+      where: {
+        postId
+      },
+      include: {
+        tags: true,
+      }
+    });
+
+    return {...post,
+      postType: PostType[post.postType],
+      postState: PostState[post.postState]
+     }
+  }
+
+
+  public async findByTitle(title: string): Promise<Post | null> {
+    const post = await this.prisma.post.findFirst({
+      where: {
+        title
+      },
+      include: {
+        tags: true,
+      }
+    });
+    return {...post,
+      postType: PostType[post.postType],
+      postState: PostState[post.postState]
+     }
+  }
+
+  public async find(): Promise<Post[]> {
+    const posts = await this.prisma.post.findMany({
+      include: {
+        tags: true
+      }
+    });
+
+    const updPosts = posts.map((post) => ({
+      ...post,
+      postType: PostType[post.postType],
+      postState: PostState[post.postState]
+    }));
+
+    return updPosts;
+
+  }
+
+  public update(_id: number, _item: BlogPostEntity): Promise<Post> {
+    return Promise.resolve(undefined);
+  }
 }

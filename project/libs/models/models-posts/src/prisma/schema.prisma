@@ -25,7 +25,7 @@ model Post {
   descriptionLink   String? @map("description_link")
   postType          String  @map("post_type")
   postState         String  @map("post_state")
-  isRepost          String  @map("is_repost")
+  isRepost          Boolean @default(false) @map("is_repost")
   userId            String? @map("user_id")
   originUserId      String? @map("origin_user_id")
   createdAt         DateTime @default(now()) @map("created_at")

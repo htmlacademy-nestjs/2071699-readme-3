@@ -66,6 +66,13 @@
         "cwd": "libs/models/models-posts/src/prisma"
       }
     },
+    "db:push": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma db push",
+        "cwd": "libs/models/models-posts/src/prisma"
+      }
+    },
     "db:migrate": {
       "executor": "nx:run-commands",
       "options": {

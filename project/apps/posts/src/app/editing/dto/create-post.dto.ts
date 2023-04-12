@@ -15,7 +15,7 @@ export class CreatePostDto {
   @ApiProperty({
     description: 'Список тегов к публикации'
   })
-  public tags?: Tag[];
+  public tags?: number[];
 
   @ApiProperty({
     description: 'Анонс. Указывается для создания новой публикации типа Текст'
@@ -72,4 +72,9 @@ export class CreatePostDto {
     description: 'Список комментариев к публикации'
   })
   public comments?: Comment[];
+
+  @ApiProperty({
+    description: 'Признак «Репост»'
+  })
+  public isRepost: boolean;
 }

@@ -16,7 +16,7 @@ async function fillDb() {
             text: 'Озеро Байкал – огромное древнее озеро в горах Сибири к северу от монгольской границы.',
             postType: 'Text',
             postState: 'Public',
-            isRepost: 'false'
+            isRepost: false
           },
         ]
       },
@@ -35,7 +35,7 @@ async function fillDb() {
             authQuote: 'Xью Оден',
             postType: 'Quote',
             postState: 'Public',
-            isRepost: 'false'
+            isRepost: false
            },
           {
             userId: '3333',
@@ -43,7 +43,7 @@ async function fillDb() {
             authQuote: 'Макс фрай',
             postType: 'Quote',
             postState: 'Public',
-            isRepost: 'false',
+            isRepost: false,
             comments: {
                create: [
                  {
@@ -71,7 +71,7 @@ async function fillDb() {
             descriptionLink: 'Стоматология',
             postType: 'Link',
             postState: 'Public',
-            isRepost: 'false',
+            isRepost: false,
             comments: {
                create: [
                  {
@@ -98,7 +98,6 @@ fillDb()
   })
   .catch(async (err) => {
     console.error(err);
-    console.error('hhhhhhhhhhhhhhhhh');
     await prisma.$disconnect()
 
     process.exit(1);

@@ -7,7 +7,7 @@ export class RepostRdo {
     description: 'The uniq post ID',
     example: '13'
   })
-  @Expose({ name: '_id'})
+  @Expose({ name: 'postId'})
   public id: string;
 
   @ApiProperty({

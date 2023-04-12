@@ -1,4 +1,4 @@
-import { Post, PostState, PostType, Tag, Comment} from '@project/shared/shared-types';
+import { Post, PostState, PostType, Tag} from '@project/shared/shared-types';
 import { Entity } from '@project/util/util-types';
 
 export class BlogPostEntity implements Entity<BlogPostEntity> , Post {
@@ -18,7 +18,6 @@ export class BlogPostEntity implements Entity<BlogPostEntity> , Post {
   public isRepost: boolean;
   public userId: string;
   public originUserId: string;
-  public comments: Comment[];
 
  constructor(blogPost: Post) {
     this.fillEntity(blogPost);
@@ -27,8 +26,7 @@ export class BlogPostEntity implements Entity<BlogPostEntity> , Post {
   public toObject(): BlogPostEntity {
     return {
       ...this,
-      tags: this.tags.map(({ tagId }) => ({ tagId })),
-      comments: this.comments.map(({ commentId }) => ({ commentId }))
+      tags: this.tags.map(({ tagId }) => ({ tagId }))
     };
   }
 
@@ -36,7 +34,7 @@ export class BlogPostEntity implements Entity<BlogPostEntity> , Post {
     this._id = blogPost._id;
     this.title = blogPost.title;
     this.video = blogPost.video;
-    this.tags = [];
+    this.tags = [...blogPost.tags];
     this.preview = blogPost.preview;
     this.text = blogPost.text;
     this.quote = blogPost.quote;
@@ -49,7 +47,6 @@ export class BlogPostEntity implements Entity<BlogPostEntity> , Post {
     this.isRepost = blogPost.isRepost;
     this.userId = blogPost.userId;
     this.originUserId = blogPost.originUserId;
-    this.comments = [];
   }
 
 

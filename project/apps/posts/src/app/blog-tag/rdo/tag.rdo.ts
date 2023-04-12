@@ -2,7 +2,7 @@ import { Expose } from 'class-transformer';
 
 export class TagRdo {
   @Expose()
-  public id: string;
+  public tagId: string;
 
   @Expose()
   public title: string;

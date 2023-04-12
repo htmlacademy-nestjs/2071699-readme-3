@@ -1,33 +1,29 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { BlogPostRepository } from '../blog-post/blog-post.repository';
+import { BlogTagRepository } from '../blog-tag/blog-tag.repository';
 import { CreatePostDto } from './dto/create-post.dto';
-import { BlogPostMemoryRepository } from '../blog-post/blog-post-memory.repository';
+import { POST_NOT_FOUND, Post } from '@project/shared/shared-types';
 import { BlogPostEntity } from '../blog-post/blog-post.entity';
-import { POST_NOT_FOUND } from '@project/shared/shared-types';
-
-type OriginUserId = {
-  userId: string;
-  };
 
 
 @Injectable()
 export class EditingService {
   constructor(
-    private readonly blogPostRepository: BlogPostMemoryRepository
+    private readonly blogPostRepository: BlogPostRepository,
+    private readonly blogTagRepository: BlogTagRepository
   ) {}
 
-  public async createPost(dto: CreatePostDto) {
-
-    const blogPost = {
-      ...dto,
-      isRepost: false};
-
-    const postEntity = await new BlogPostEntity(blogPost)
-
-    return this.blogPostRepository
-      .create(postEntity);
+  async createPost(dto: CreatePostDto): Promise<Post> {
+    const tags = await this.blogTagRepository.find(dto.tags);
+    const postEntity = new BlogPostEntity({ ...dto, tags, comments: [] });
+    return this.blogPostRepository.create(postEntity);
   }
 
-  public async getPostId(id: string) {
+  async deletePostId(id: number): Promise<void> {
+    this.blogPostRepository.destroy(id);
+  }
+
+  async getPostId(id: number): Promise<Post> {
     const existPost = await this.blogPostRepository.findById(id);
 
     if (!existPost) {
@@ -36,7 +32,7 @@ export class EditingService {
     return this.blogPostRepository.findById(id);
   }
 
-  public async getPostTitle(title: string) {
+  async getPostTitle(title: string) {
 
     const existPost = await this.blogPostRepository.findByTitle(title);
 
@@ -46,11 +42,9 @@ export class EditingService {
     return this.blogPostRepository.findByTitle(title);
   }
 
-  public async deletePostId(id: string) {
-    return this.blogPostRepository.destroy(id);
-  }
 
-  public async updatePostId(id: string, dto: CreatePostDto) {
+  async updatePostId(id: number, dto: CreatePostDto) {
+    const tags = await this.blogTagRepository.find(dto.tags);
     const existPost = await this.blogPostRepository.findById(id);
 
     if (!existPost) {
@@ -58,15 +52,16 @@ export class EditingService {
     }
     const blogPost = {
       ...dto,
+      tags,
       isRepost: false,
-      _id: id};
+      postId: id};
 
-      const postEntity = await new BlogPostEntity(blogPost)
+      const postEntity = new BlogPostEntity(blogPost)
 
    return this.blogPostRepository.update(id, postEntity);
   }
 
-  public async repost(id: string, originUserId: OriginUserId) {
+  public async repost(id: number, newUserId: string) {
     const existPost = await this.blogPostRepository.findById(id);
 
      if (!existPost) {
@@ -76,11 +71,12 @@ export class EditingService {
           ...existPost,
           isRepost: true,
           originUserId: existPost.userId,
-          userId: originUserId.userId};
+          userId: newUserId};
 
-        const postEntity = await new BlogPostEntity(blogPost)
+    const postEntity = new BlogPostEntity({ ...blogPost, comments: [] });
 
         return this.blogPostRepository
           .create(postEntity);
       }
+
 }
