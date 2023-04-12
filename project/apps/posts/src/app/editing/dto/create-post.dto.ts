@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { PostState, PostType } from "@project/shared/shared-types";
+import { PostState, PostType, Tag, Comment } from "@project/shared/shared-types";
 
 export class CreatePostDto {
   @ApiProperty({
@@ -15,7 +15,7 @@ export class CreatePostDto {
   @ApiProperty({
     description: 'Список тегов к публикации'
   })
-  public tags?: string[];
+  public tags?: Tag[];
 
   @ApiProperty({
     description: 'Анонс. Указывается для создания новой публикации типа Текст'
@@ -67,4 +67,9 @@ export class CreatePostDto {
     description: 'ИД пользователя'
   })
   public userId: string;
+
+  @ApiProperty({
+    description: 'Список комментариев к публикации'
+  })
+  public comments?: Comment[];
 }

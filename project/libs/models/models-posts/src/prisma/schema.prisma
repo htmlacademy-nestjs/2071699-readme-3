@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../../../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  postId            Int      @id @default(autoincrement()) @map("post_id")
+  title             String?   @default("")
+  video             String?
+  tags              Tag[]
+  preview           String?
+  text              String?
+  quote             String?
+  authQuote         String? @map("auth_quote")
+  photo             String?
+  link              String?
+  descriptionLink   String? @map("description_link")
+  postType          String  @map("post_type")
+  postState         String  @map("post_state")
+  isRepost          String  @map("is_repost")
+  userId            String? @map("user_id")
+  originUserId      String? @map("origin_user_id")
+  createdAt         DateTime @default(now()) @map("created_at")
+  publishAt         DateTime @updatedAt @map("publish_at")
+  comments          Comment[]
+  feed              Feed[]
+
+  @@map("posts")
+}
+
+model Tag {
+  tagId      Int    @id @default(autoincrement()) @map("tag_id")
+  title      String
+  posts      Post[]
+  @@map("tags")
+}
+
+
+model Comment {
+  commentId Int      @id @default(autoincrement()) @map("comment_id")
+  message   String
+  userId    String   @map("user_id")
+  post      Post     @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
+  postId    Int      @map("post_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  @@map("comments")
+}
+
+
+model Feed {
+  feedId Int      @id @default(autoincrement()) @map("feed_id")
+  post       Post     @relation(fields: [postId], references: [postId], onDelete: Cascade)
+  postId     Int      @map("post_id")
+  userId     String   @map("user_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @default(now()) @updatedAt @map("updated_at")
+  @@map("feeds")
+}
+

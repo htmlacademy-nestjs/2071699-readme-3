@@ -1,11 +1,13 @@
 import {PostType} from './post-type.enum';
 import {PostState} from './post-state.enum';
+import { Tag } from './tag.interface';
+import { Comment } from './comment.interface';
 
 export interface Post {
   _id?: string;
   title?: string;
   video?: string;
-  tags?: string[];
+  tags?: Tag[];
   preview?: string;
   text?: string;
   quote?: string;
@@ -18,4 +20,5 @@ export interface Post {
   isRepost: boolean;
   userId: string;
   originUserId?: string;
+  comments?: Comment[];
 }
