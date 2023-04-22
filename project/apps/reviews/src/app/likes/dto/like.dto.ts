@@ -4,7 +4,7 @@ export class LikeDto {
   @ApiProperty({
     description: 'The post ID'
   })
-  public postId: string;
+  public postId: number;
 
   @ApiProperty({
     description: 'Author comment'

@@ -26,7 +26,7 @@ export class LikeMemoryRepository implements CRUDRepository<LikeEntity, string, 
     return null;
   }
 
-  public async findByPostId(postId: string): Promise<Like[]> {
+  public async findByPostId(postId: number): Promise<Like[]> {
     const likes = Object.values(this.repository)
     .filter((postItem) => postItem.postId === postId);
 
@@ -37,7 +37,7 @@ export class LikeMemoryRepository implements CRUDRepository<LikeEntity, string, 
   }
 
   public async update(id: string, item: LikeEntity): Promise<Like> {
-    this.repository[id] = {...item.toObject(), _id: id};
+    this.repository[id] = {...item.toObject(), likeId: Number(id)};
     return this.findById(id);
   }
 }

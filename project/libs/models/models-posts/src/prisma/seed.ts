@@ -13,7 +13,7 @@ async function fillDb() {
           {
             title: 'Полезный пост про Байкал',
             userId: '1111',
-            text: 'Озеро Байкал – огромное древнее озеро в горах Сибири к северу от монгольской границы.',
+            content: 'Озеро Байкал – огромное древнее озеро в горах Сибири к северу от монгольской границы.',
             postType: 'Text',
             postState: 'Public',
             isRepost: false
@@ -31,19 +31,20 @@ async function fillDb() {
         create: [
           {
             userId: '2222',
-            quote: 'Тысячи людей живут без любви, но никто — без воды.',
-            authQuote: 'Xью Оден',
+            content: 'Тысячи людей живут без любви, но никто — без воды.',
+            addInfo: 'Xью Оден',
             postType: 'Quote',
             postState: 'Public',
             isRepost: false
            },
           {
             userId: '3333',
-            quote: 'Себя надо любить и хвалить. Не поручать же такое ответственное дело чужим людям.',
-            authQuote: 'Макс фрай',
+            content: 'Себя надо любить и хвалить. Не поручать же такое ответственное дело чужим людям.',
+            addInfo: 'Макс фрай',
             postType: 'Quote',
             postState: 'Public',
             isRepost: false,
+            commentsCount: 1,
             comments: {
                create: [
                  {
@@ -67,11 +68,12 @@ async function fillDb() {
           {
             title: 'Делюсь с вами ссылочкой',
             userId: '1111',
-            link: 'https://vitadental.ru/',
-            descriptionLink: 'Стоматология',
+            content: 'https://vitadental.ru/',
+            addInfo: 'Стоматология',
             postType: 'Link',
             postState: 'Public',
             isRepost: false,
+            commentsCount: 2,
             comments: {
                create: [
                  {

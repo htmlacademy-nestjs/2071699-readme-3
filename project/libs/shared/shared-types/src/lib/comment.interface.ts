@@ -1,6 +1,6 @@
 export interface Comment {
-  commentId?: string;
-  postId: string;
+  commentId?: number;
+  postId: number;
   message: string;
   userId: string;
 }

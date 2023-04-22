@@ -11,9 +11,8 @@ export class BlogTagController {
   ) {}
 
   @Get('/:id')
-  async show(@Param('id') id: string) {
-    const tagId = parseInt(id, 10);
-    const existTag = await this.blogTagService.getTag(tagId);
+  async show(@Param('id') id: number) {
+    const existTag = await this.blogTagService.getTag(id);
     return fillObject(TagRdo, existTag);
   }
 
@@ -31,9 +30,8 @@ export class BlogTagController {
 
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async destroy(@Param('id') id: string) {
-    const tagId = parseInt(id, 10);
-    this.blogTagService.deleteTag(tagId);
+  async destroy(@Param('id') id: number) {
+    this.blogTagService.deleteTag(id);
   }
 
 }

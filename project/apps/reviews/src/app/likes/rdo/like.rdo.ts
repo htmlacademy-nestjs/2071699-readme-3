@@ -6,7 +6,7 @@ export class LikeRdo {
     description: 'The uniq comment ID',
     example: '13'
   })
-  @Expose({ name: '_id'})
+  @Expose({ name: 'likeId'})
   public id: string;
 
   @ApiProperty({

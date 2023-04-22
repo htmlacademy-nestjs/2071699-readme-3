@@ -1,18 +1,22 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { POST_NOT_FOUND } from '@project/shared/shared-types';
-import { LikeMemoryRepository } from './like-memory.repository';
 import { LikeDto } from './dto/like.dto';
 import { LikeEntity } from './like.entity';
+import { LikeRepository } from './like.repository';
 
 
 @Injectable()
 export class LikesService {
   constructor(
-    private readonly likeRepository: LikeMemoryRepository
+    private readonly likeRepository: LikeRepository
   ) {}
 
   public async createLike(dto: LikeDto) {
 
+    const existLike = await this.likeRepository.findByPostUser(dto.postId, dto.userId);
+    if (existLike) {
+     throw new ConflictException('Like is already installed')
+    }
     const newLike = {...dto};
 
     const postEntity = await new LikeEntity(newLike)
@@ -21,7 +25,7 @@ export class LikesService {
       .create(postEntity);
   }
 
-  public async getPostId(postId: string) {
+  public async getPostId(postId: number) {
     const existLike = await this.likeRepository.findByPostId(postId);
 
     if (!existLike) {
@@ -30,8 +34,8 @@ export class LikesService {
     return this.likeRepository.findByPostId(postId);
   }
 
-  public async delete(id: string) {
-    return this.likeRepository.destroy(id);
+  public async delete(postId: number) {
+    return this.likeRepository.destroy(postId);
   }
 
 

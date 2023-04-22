@@ -1,8 +1,8 @@
 import { Like} from '@project/shared/shared-types';
 
 export class LikeEntity implements Like {
-  public _id: string;
-  public postId: string;
+  public likeId: number;
+  public postId: number;
   public userId: string;
 
  constructor(likePost: Like) {
@@ -14,7 +14,7 @@ export class LikeEntity implements Like {
   }
 
   public fillEntity(likePost: Like) {
-    this._id = likePost._id;
+    this.likeId = likePost.likeId;
     this.postId = likePost.postId;
     this.userId = likePost.userId;
 

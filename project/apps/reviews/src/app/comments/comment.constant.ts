@@ -1,0 +1,3 @@
+export const DEFAULT_COMMENT_COUNT_LIMIT=50;
+export const MIN_COMMENT_LENGTH=10;
+export const MAX_COMMENT_LENGTH=300;

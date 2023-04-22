@@ -20,55 +20,31 @@ export class PostRdo {
     description: 'Указывается для создания новой публикации типа Видео'
   })
   @Expose()
-  public video: string;
+  public content: string;
+
+  @ApiProperty({
+    description: 'Указывается дополнительная информация к публикации, например автор цитаты, описание ссылки и т.д.'
+  })
+  @Expose()
+  public addInfo?: string;
+  
+  @ApiProperty({
+    description: 'Количество комментариев'
+  })
+  @Expose()
+  public commentsCount: number;
+
+  @ApiProperty({
+    description: 'Количество лайков'
+  })
+  @Expose()
+  public likesCount: number;
 
   @ApiProperty({
     description: 'Список тегов к публикации'
   })
   @Expose()
   public tags: string[];
-
-  @ApiProperty({
-    description: 'Анонс. Указывается для создания новой публикации типа Текст'
-  })
-  @Expose()
-  public preview: string;
-
-  @ApiProperty({
-    description: 'Текст. Указывается для создания новой публикации типа Текст'
-  })
-  @Expose()
-  public text: string;
-
-
-  @ApiProperty({
-    description: 'Текст цитаты. Указывается для создания новой публикации типа Цитата'
-  })
-  @Expose()
-  public quote: string;
-
-  @ApiProperty({
-    description: 'Автор цитаты. Указывается для создания новой публикации типа Цитата'
-  })
-  @Expose()
-  public authQuote: string;
-
-  @ApiProperty({
-    description: 'Указывается для создания новой публикации типа Фото'
-  })
-  @Expose()
-  public photo: string;
-
-  @ApiProperty({
-    description: 'Указывается для создания новой публикации типа Ссылка'
-  })
-  @Expose()
-  public link: string;
-
-  @ApiProperty({
-    description: 'Указывается для создания новой публикации типа Ссылка'
-  })
-  public descriptionLink: string;
 
   @ApiProperty({
     description: 'Тип публикации'

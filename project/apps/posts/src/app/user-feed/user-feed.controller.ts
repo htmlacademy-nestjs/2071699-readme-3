@@ -1,8 +1,9 @@
-import { Controller, Get, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Query } from '@nestjs/common';
 import { fillObject } from '@project/util/util-core';
 import { PostRdo } from './rdo/post.rdo';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserFeedService } from './user-feed.service';
+import { PostQuery } from '../blog-post/qurey/post.query';
 
 @ApiTags('user-feed')
 @Controller('feed')
@@ -17,8 +18,8 @@ export class UserFeedController {
     description: 'Show user feed'
   })
   @Get('')
-  public async showFeed() {
-    const existPost = await this.userFeedService.getUserFeed();
+  public async showFeed(@Query() query: PostQuery) {
+    const existPost = await this.userFeedService.getUserFeed(query);
     return fillObject(PostRdo, existPost);
   }
 

@@ -29,9 +29,9 @@ export class LikesController {
     status: HttpStatus.OK,
     description: 'Delete like'
   })
-  @Delete('delete/:id')
-  public async delete(@Param('id') id: string) {
-    await this.likesService.delete(id);
+  @Delete('delete/:postId')
+  public async delete(@Param('postId') postId: number) {
+    await this.likesService.delete(postId);
   }
 
   @ApiResponse({
@@ -40,7 +40,7 @@ export class LikesController {
     description: 'Like by postId found'
   })
   @Get(':postId')
-  public async showPostId(@Param('postId') postId: string) {
+  public async showPostId(@Param('postId') postId: number) {
     const likes = await this.likesService.getPostId(postId);
     return fillObject(LikeRdo, likes);
   }

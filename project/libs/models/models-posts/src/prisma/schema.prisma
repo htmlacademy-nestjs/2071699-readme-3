@@ -13,26 +13,22 @@ datasource db {
 
 model Post {
   postId            Int      @id @default(autoincrement()) @map("post_id")
-  title             String?   @default("")
-  video             String?
+  title             String?  @default("")
+  content           String
   tags              Tag[]
-  preview           String?
-  text              String?
-  quote             String?
-  authQuote         String? @map("auth_quote")
-  photo             String?
-  link              String?
-  descriptionLink   String? @map("description_link")
-  postType          String  @map("post_type")
-  postState         String  @map("post_state")
-  isRepost          Boolean @default(false) @map("is_repost")
-  userId            String? @map("user_id")
-  originUserId      String? @map("origin_user_id")
+  addInfo           String?  @map("add_info")
+  postType          String   @map("post_type")
+  postState         String   @map("post_state")
+  isRepost          Boolean  @default(false) @map("is_repost")
+  userId            String?  @map("user_id")
+  originUserId      String?  @map("origin_user_id")
   createdAt         DateTime @default(now()) @map("created_at")
   publishAt         DateTime @updatedAt @map("publish_at")
   comments          Comment[]
   feed              Feed[]
-
+  commentsCount     Int      @default(0) @map("comments_count")
+  likesCount        Int      @default(0) @map("likes_count")
+  likes             Like[]
   @@map("posts")
 }
 
@@ -65,3 +61,11 @@ model Feed {
   @@map("feeds")
 }
 
+model Like {
+  likeId    Int      @id @default(autoincrement()) @map("comment_id")
+  userId    String   @map("user_id")
+  post      Post     @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
+  postId    Int      @map("post_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  @@map("likes")
+}

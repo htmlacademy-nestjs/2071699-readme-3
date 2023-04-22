@@ -3,6 +3,7 @@ import { CRUDRepository } from '@project/util/util-types';
 import { BlogPostEntity } from './blog-post.entity';
 import { Post, PostState, PostType } from '@project/shared/shared-types';
 import { PrismaService } from '../prisma/prisma.service';
+import { PostQuery } from './qurey/post.query';
 
 @Injectable()
 export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number, Post> {
@@ -49,7 +50,6 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         tags: true,
       }
     });
-
     return {...post,
       postType: PostType[post.postType],
       postState: PostState[post.postState]
@@ -72,11 +72,21 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
      }
   }
 
-  public async find(): Promise<Post[]> {
+  public async find({limit, user, sortDirection, sortComments,  sortLikes, page}: PostQuery): Promise<Post[]> {
     const posts = await this.prisma.post.findMany({
+      where: {
+        userId: user
+      },
+      take: limit,
       include: {
         tags: true
-      }
+      },
+      orderBy: [
+        { createdAt: sortDirection,
+          commentsCount: sortComments,
+          likesCount: sortLikes}
+      ],
+      skip: page > 0 ? limit * (page - 1) : undefined,
     });
 
     const updPosts = posts.map((post) => ({

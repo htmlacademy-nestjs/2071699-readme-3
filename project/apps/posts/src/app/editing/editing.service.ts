@@ -15,7 +15,7 @@ export class EditingService {
 
   async createPost(dto: CreatePostDto): Promise<Post> {
     const tags = await this.blogTagRepository.find(dto.tags);
-    const postEntity = new BlogPostEntity({ ...dto, tags, comments: [] });
+    const postEntity = new BlogPostEntity({ ...dto, tags, comments: [], commentsCount: 0, likesCount: 0 });
     return this.blogPostRepository.create(postEntity);
   }
 
@@ -54,7 +54,9 @@ export class EditingService {
       ...dto,
       tags,
       isRepost: false,
-      postId: id};
+      postId: id,
+      commentsCount: existPost.commentsCount,
+      likesCount: existPost.likesCount};
 
       const postEntity = new BlogPostEntity(blogPost)
 
@@ -73,7 +75,7 @@ export class EditingService {
           originUserId: existPost.userId,
           userId: newUserId};
 
-    const postEntity = new BlogPostEntity({ ...blogPost, comments: [] });
+    const postEntity = new BlogPostEntity(blogPost);
 
         return this.blogPostRepository
           .create(postEntity);

@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { PostState, PostType, Tag, Comment } from "@project/shared/shared-types";
+import { PostState, PostType, Comment } from "@project/shared/shared-types";
 
 export class CreatePostDto {
   @ApiProperty({
@@ -8,9 +8,9 @@ export class CreatePostDto {
   public title?: string;
 
   @ApiProperty({
-    description: 'Указывается для создания новой публикации типа Видео'
+    description: 'Указывается основное содержимое публикации'
   })
-  public video?: string;
+  public content: string;
 
   @ApiProperty({
     description: 'Список тегов к публикации'
@@ -18,40 +18,9 @@ export class CreatePostDto {
   public tags?: number[];
 
   @ApiProperty({
-    description: 'Анонс. Указывается для создания новой публикации типа Текст'
+    description: 'Указывается дополнительная информация к публикации, например автор цитаты, описание ссылки и т.д.'
   })
-  public preview?: string;
-
-  @ApiProperty({
-    description: 'Текст. Указывается для создания новой публикации типа Текст'
-  })
-  public text?: string;
-
-
-  @ApiProperty({
-    description: 'Текст цитаты. Указывается для создания новой публикации типа Цитата'
-  })
-  public quote?: string;
-
-  @ApiProperty({
-    description: 'Автор цитаты. Указывается для создания новой публикации типа Цитата'
-  })
-  public authQuote?: string;
-
-  @ApiProperty({
-    description: 'Указывается для создания новой публикации типа Фото'
-  })
-  public photo?: string;
-
-  @ApiProperty({
-    description: 'Указывается для создания новой публикации типа Ссылка'
-  })
-  public link?: string;
-
-  @ApiProperty({
-    description: 'Указывается для создания новой публикации типа Ссылка'
-  })
-  public descriptionLink?: string;
+  public addInfo?: string;
 
   @ApiProperty({
     description: 'Тип публикации'

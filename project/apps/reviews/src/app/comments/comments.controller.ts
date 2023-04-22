@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Query } from '@nestjs/common';
 import { CommentDto } from './dto/comment.dto';
 import { fillObject } from '@project/util/util-core';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CommentsService } from './comment.service';
 import { CommentRdo } from './rdo/comment.rdo';
+import { CommentQuery } from './qurey/comment.query';
 
 
 @ApiTags('comments')
@@ -30,7 +31,7 @@ export class CommentsController {
     description: 'Delete comment'
   })
   @Delete('delete/:id')
-  public async delete(@Param('id') id: string) {
+  public async delete(@Param('id') id: number) {
     await this.commentsService.delete(id);
   }
 
@@ -40,8 +41,8 @@ export class CommentsController {
     description: 'Comment by postId found'
   })
   @Get(':postId')
-  public async showPostId(@Param('postId') postId: string) {
-    const comments = await this.commentsService.getPostId(postId);
+  public async showPostId(@Query() query: CommentQuery, @Param('postId') postId: number) {
+    const comments = await this.commentsService.getPostId(query, postId);
     return fillObject(CommentRdo, comments);
   }
 

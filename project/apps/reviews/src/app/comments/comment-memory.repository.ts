@@ -28,7 +28,7 @@ export class CommentMemoryRepository implements CRUDRepository<CommentEntity, st
 
   public async findByPostId(postId: string): Promise<Comment[]> {
     const comments = Object.values(this.repository)
-    .filter((postItem) => postItem.postId === postId);
+    .filter((postItem) => postItem.postId === Number(postId));
 
     if (! comments) {
       return null;
@@ -37,7 +37,7 @@ export class CommentMemoryRepository implements CRUDRepository<CommentEntity, st
   }
 
   public async update(id: string, item: CommentEntity): Promise<Comment> {
-    this.repository[id] = {...item.toObject(), _id: id};
+    this.repository[id] = {...item.toObject(), commentId: Number(id)};
     return this.findById(id);
   }
 }
