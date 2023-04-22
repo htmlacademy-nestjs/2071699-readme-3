@@ -1,16 +1,17 @@
 import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { BlogUserRepository } from '../blog-user/blog-user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserRole } from '@project/shared/shared-types';
+import { TokenPayload, UserRole, User } from '@project/shared/shared-types';
 import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from './authentication.constant';
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
 import { LoginUserDto } from './dto/login-user.dto';
-
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthenticationService {
   constructor(
-    private readonly blogUserRepository: BlogUserRepository
+    private readonly blogUserRepository: BlogUserRepository,
+    private readonly jwtService: JwtService,
   ) {}
 
   public async register(dto: CreateUserDto) {
@@ -55,4 +56,16 @@ export class AuthenticationService {
     return this.blogUserRepository.findById(id);
   }
 
+  public async createUserToken(user: User) {
+    const payload: TokenPayload = {
+      sub: user._id,
+      email: user.email,
+      role: user.role,
+      userName: user.userName,
+    };
+
+    return {
+      accessToken: await this.jwtService.signAsync(payload),
+    }
+  }
 }
