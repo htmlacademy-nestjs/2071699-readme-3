@@ -34,8 +34,9 @@ export class LikesService {
     return this.likeRepository.findByPostId(postId);
   }
 
-  public async delete(postId: number) {
-    return this.likeRepository.destroy(postId);
+  public async delete(postId: number, userId: string) {
+    const like = await this.likeRepository.findByPostUser(postId, userId)
+    return this.likeRepository.destroy(like.likeId);
   }
 
 

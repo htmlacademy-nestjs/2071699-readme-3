@@ -99,7 +99,30 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
 
   }
 
-  public update(_id: number, _item: BlogPostEntity): Promise<Post> {
-    return Promise.resolve(undefined);
+  public async update(postId: number, item: BlogPostEntity): Promise<Post> {
+    const entityData = item.toObject()
+        const updPost = await this.prisma.post.update({
+          where: {
+            postId
+          },
+          data: {
+            ...entityData,
+            postType: String(entityData.postType),
+            postState: String(entityData.postState),
+            tags: {
+              connect: entityData.tags
+                .map(({ tagId }) => ({ tagId }))
+            }
+          },
+          include: {
+            tags: true,
+          }
+        })
+
+        return {...updPost,
+          postType: PostType[updPost.postType],
+          postState: PostState[updPost.postState]
+         }
+    }
   }
-}
+

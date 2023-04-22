@@ -64,7 +64,6 @@ export class EditingController {
   @Patch('edit/:id')
   public async edit(@Param('id') id: number, @Body() dto: CreatePostDto) {
     const existPost = await this.editService.updatePostId(id, dto);
-    console.log(existPost);
     return fillObject(PostRdo, existPost);
   }
 

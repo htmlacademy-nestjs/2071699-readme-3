@@ -16,7 +16,7 @@ Content-Type: application/json
 ###
 
 # Get post by ID
-GET http://localhost:3333/api/post/5 HTTP/1.1
+GET http://localhost:3333/api/post/8 HTTP/1.1
 Content-Type: application/json
 ###
 
@@ -26,7 +26,7 @@ Content-Type: application/json
 ###
 
 # Delete post by ID
-DELETE  http://localhost:3333/api/post/delete/7 HTTP/1.1
+DELETE  http://localhost:3333/api/post/delete/5 HTTP/1.1
 Content-Type: application/json
 ###
 
@@ -35,10 +35,11 @@ PATCH  http://localhost:3333/api/post/edit/8 HTTP/1.1
 Content-Type: application/json
 
 {
-  "title": "Title 21",
-  "content": "video/1.mp3",
-  "tags": [1],
-  "postType": "Video",
+  "title": " Валидная ссыки валидности ссылки",
+  "content": "http://gg.com",
+  "addInfo": "ggg",
+  "tags": [1, 2],
+  "postType": "Text",
   "postState": "Public",
   "isRepost": false,
   "userId": "1"

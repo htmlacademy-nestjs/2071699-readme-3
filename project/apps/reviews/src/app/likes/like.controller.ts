@@ -29,9 +29,9 @@ export class LikesController {
     status: HttpStatus.OK,
     description: 'Delete like'
   })
-  @Delete('delete/:postId')
-  public async delete(@Param('postId') postId: number) {
-    await this.likesService.delete(postId);
+  @Delete('delete')
+  public async delete(@Body() dto: LikeDto) {
+    await this.likesService.delete(dto.postId, dto.userId);
   }
 
   @ApiResponse({
