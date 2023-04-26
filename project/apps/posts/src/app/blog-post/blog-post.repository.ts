@@ -79,12 +79,15 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
       },
       take: limit,
       include: {
-        tags: true
+        tags: true,
+        comments: true,
+        likes: true
       },
       orderBy: [
-        { createdAt: sortDirection,
-          commentsCount: sortComments,
-          likesCount: sortLikes}
+        {createdAt: sortDirection},
+        {comments: {_count: sortComments}},
+        {likes: {_count: sortLikes}},
+
       ],
       skip: page > 0 ? limit * (page - 1) : undefined,
     });

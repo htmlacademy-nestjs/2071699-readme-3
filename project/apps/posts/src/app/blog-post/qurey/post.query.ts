@@ -13,15 +13,15 @@ export class PostQuery {
 
   @IsIn(['asc', 'desc'])
   @IsOptional()
-  public sortDirection: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
+  public sortDirection?: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
 
   @IsIn(['asc', 'desc'])
   @IsOptional()
-  public sortLikes: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
+  public sortLikes?: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
 
   @IsIn(['asc', 'desc'])
   @IsOptional()
-  public sortComments: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
+  public sortComments?: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
 
   @Transform(({ value }) => +value)
   @IsOptional()
