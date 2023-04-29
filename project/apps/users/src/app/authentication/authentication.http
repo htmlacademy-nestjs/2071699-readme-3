@@ -25,3 +25,8 @@ Content-Type: application/json
 }
 
 ###
+# Get new JWT pair
+POST http://localhost:3333/api/auth/refresh HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDQzZjZjOTdhMDQ2YzNiOGY3NWFmNDUiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJLZWtzMyIsInRva2VuSWQiOiI4ZjczOWI0NS1hNTA1LTQyMTYtYTg0Yi1kMjM5OTVkZGY1MzAiLCJpYXQiOjE2ODI3OTYxNzQsImV4cCI6MTY4NTM4ODE3NH0.ujQRI6IZvqwBbxafBBxyKR33RfzQHJNEgrd-BtN4CrY
+
+###

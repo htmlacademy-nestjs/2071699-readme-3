@@ -72,7 +72,18 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
      }
   }
 
-  public async find({limit, user, sortDirection, sortComments,  sortLikes, page}: PostQuery): Promise<Post[]> {
+  public async find(query: PostQuery): Promise<Post[]> {
+    const {limit, user, sortDirection, sortComments,  sortLikes, page}= query;
+    const orderByState= [];
+
+    const keys = Object.keys(query);
+
+    keys.forEach(key => {
+      key === 'sortDirection'? orderByState.push({createdAt: sortDirection}) : '';
+      key === 'sortComments'? orderByState.push({comments: {_count: sortComments}}) : '';
+      key === 'sortLikes'? orderByState.push({likes: {_count: sortLikes}}) : '';
+    });
+
     const posts = await this.prisma.post.findMany({
       where: {
         userId: user
@@ -83,12 +94,9 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         comments: true,
         likes: true
       },
-      orderBy: [
-        {createdAt: sortDirection},
-        {comments: {_count: sortComments}},
-        {likes: {_count: sortLikes}},
 
-      ],
+      orderBy: orderByState,
+
       skip: page > 0 ? limit * (page - 1) : undefined,
     });
 
