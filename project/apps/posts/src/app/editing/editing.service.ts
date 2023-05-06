@@ -4,17 +4,27 @@ import { BlogTagRepository } from '../blog-tag/blog-tag.repository';
 import { POST_NOT_FOUND, Post, PostState } from '@project/shared/shared-types';
 import { BlogPostEntity } from '../blog-post/blog-post.entity';
 import { CreatePostDto, EditPostDto } from '@project/shared/shared-dto';
+import { BlogTagService } from '../blog-tag/blog-tag.service';
 
 
 @Injectable()
 export class EditingService {
   constructor(
     private readonly blogPostRepository: BlogPostRepository,
-    private readonly blogTagRepository: BlogTagRepository
+    private readonly blogTagRepository: BlogTagRepository,
+    private readonly blogTagService: BlogTagService
   ) {}
 
   async createPost(dto: CreatePostDto): Promise<Post> {
-    const tags = await this.blogTagRepository.find(dto.tags);
+
+    const tagsArr = [];
+    dto.tags.forEach((element) => {
+    if (!tagsArr.includes(element.toLowerCase())) {
+        tagsArr.push(element.toLowerCase());
+    }
+});
+
+    const tags = await this.blogTagService.findAndCreateTag(tagsArr);
     const postEntity = new BlogPostEntity({ ...dto, tags, comments: [], commentsCount: 0, likesCount: 0, postState: PostState.Public });
     return this.blogPostRepository.create(postEntity);
   }

@@ -30,6 +30,25 @@ export class BlogTagRepository implements CRUDRepository<BlogTagEntity, number, 
     });
   }
 
+  public findByTitle(tagName: string): Promise<Tag | null> {
+    console.log('findByTitle', tagName)
+    return this.prisma.tag.findFirst({
+      where: {
+        title: tagName
+      }
+    });
+  }
+
+  public findByTitleArr(tagName: string[] =[]): Promise<Tag[]> {
+    return this.prisma.tag.findMany({
+      where: {
+        title: {
+          in: tagName.length > 0 ? tagName : undefined
+        }
+      }
+    });
+  }
+
   public find(ids: number[] = []): Promise<Tag[]> {
     return this.prisma.tag.findMany({
       where: {

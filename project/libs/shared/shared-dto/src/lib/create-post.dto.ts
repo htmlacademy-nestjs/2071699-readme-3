@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { PostType, Comment } from "@project/shared/shared-types";
+import { ArrayMaxSize } from "class-validator";
 
 export class CreatePostDto {
   @ApiProperty({
@@ -15,7 +16,8 @@ export class CreatePostDto {
   @ApiProperty({
     description: 'Список тегов к публикации'
   })
-  public tags?: number[];
+  @ArrayMaxSize(8)
+  public tags?: string[];
 
   @ApiProperty({
     description: 'Указывается дополнительная информация к публикации, например автор цитаты, описание ссылки и т.д.'

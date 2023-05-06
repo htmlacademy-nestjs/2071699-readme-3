@@ -3,8 +3,7 @@ import { CRUDRepository } from '@project/util/util-types';
 import { BlogPostEntity } from './blog-post.entity';
 import { Post, PostState, PostType } from '@project/shared/shared-types';
 import { PrismaService } from '../prisma/prisma.service';
-import { PostQuery } from '@project/shared/shared-query';
-import { DEFAULT_POST_COUNT_LIMIT_TITLE } from 'libs/shared/shared-query/src/lib/post-query.constants';
+import { PostQuery, DEFAULT_POST_COUNT_LIMIT_TITLE } from '@project/shared/shared-query';
 
 @Injectable()
 export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number, Post> {
