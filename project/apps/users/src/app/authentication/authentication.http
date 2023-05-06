@@ -21,7 +21,7 @@ Content-Type: application/json
 
 {
   "email": "userNew2@notfound.local",
-  "password": "1234567"
+  "password": "123456789"
 }
 
 ###
@@ -34,5 +34,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N
 POST http://localhost:3333/api/auth/check HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODMyNzI0MDMsImV4cCI6MTY4MzI3MzAwM30.wX1aMxFkN_5xUAitEVKKF7_LjBnGITb0OWa64khXV-M
 
+###
+# Change password
+POST http://localhost:3333/api/auth/changepassword HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODMzNjQwODgsImV4cCI6MTY4MzM2NDY4OH0.cfgI8Y8NX384Xs2qZWKjAYp2WPNsQ2SBfkOwZqrig4c
+Content-Type: application/json
+
+{
+  "currentPassword": "12345678",
+  "newPassword": "123456789"
+}
 
 ###

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
-import { CreateUserDto } from '@project/shared/shared-dto';
+import { CreateUserDto, LoginUserDto, PasswordDto } from '@project/shared/shared-dto';
 import { fillObject } from '@project/util/util-core';
 import { UserRdo } from './rdo/user.rdo';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
@@ -82,6 +82,21 @@ export class AuthenticationController {
     return payload;
   }
 
+
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    type: LoggedUserRdo,
+    status: HttpStatus.OK,
+    description: 'Password changed'
+  })
+  @Post('changepassword')
+  public async changePassword(@Req() { user: payload }: RequestWithTokenPayload, @Body() dto: PasswordDto) {
+    const {sub, email} = payload;
+    const loginUser: LoginUserDto = {email: email, password: dto.currentPassword};
+    await this.authService.verifyUser(loginUser);
+    return this.authService.changePassword(sub, dto);
+
+  }
 
 }
 

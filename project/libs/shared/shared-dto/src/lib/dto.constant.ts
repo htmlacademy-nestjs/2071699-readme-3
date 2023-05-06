@@ -1,3 +1,5 @@
 export const DEFAULT_COMMENT_COUNT_LIMIT=50;
 export const MIN_COMMENT_LENGTH=10;
 export const MAX_COMMENT_LENGTH=300;
+export const MAX_PASS_LENGTH=12;
+export const MIN_PASS_LENGTH=6;

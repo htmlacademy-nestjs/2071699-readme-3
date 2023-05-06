@@ -3,7 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from './app.config';
 import { Request } from 'express';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
-import { CreateUserDto, LoginUserDto } from '@project/shared/shared-dto';
+import { CreateUserDto, LoginUserDto, PasswordDto } from '@project/shared/shared-dto';
 import { MongoidValidationPipe } from '@project/shared/shared-pipes';
 import { UseridInterceptor } from './interceptors/userid.interceptor';
 import { CheckAuthGuard } from './guards/check-auth.guard';
@@ -41,7 +41,6 @@ export class UsersController {
   @UseInterceptors(UseridInterceptor)
   @Get('/:id')
   public async show(@Req() req: Request, @Param('id', MongoidValidationPipe) id: string) {
-    console.log('show')
     const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Users}/${id}`,  {
       headers: {
         'Authorization': req.headers['authorization']
@@ -49,4 +48,18 @@ export class UsersController {
     });
     return data;
 }
+
+@UseGuards(CheckAuthGuard)
+@UseInterceptors(UseridInterceptor)
+@Post('changepassword')
+public async changePassword(@Req() req: Request, @Body() dto: PasswordDto) {
+  const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Users}/changepassword`, dto, {
+    headers: {
+      'Authorization': req.headers['authorization']
+    }
+  });
+  return data;
+}
+
+
 }

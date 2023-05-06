@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
   "email": "userNew2@notfound.local",
-  "password": "1234567"
+  "password": "12345678910"
 }
 
 ###
@@ -28,5 +28,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N
 # Get new JWT pair
 POST http://localhost:4000/api/users/refresh HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJ0b2tlbklkIjoiYmI4MmIyODMtZDgwMy00MTZkLWE4NWEtOTY4MDM0OWQxNGVjIiwiaWF0IjoxNjgzMjcyMzc0LCJleHAiOjE2ODU4NjQzNzR9.Mv8PUoYMFIY_PEOmo2xUktwGkBl_abSvrN9K6AOABLs
+
+###
+
+# Change password
+POST http://localhost:4000/api/users/changepassword HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODMzNjQ3OTAsImV4cCI6MTY4MzM2NTM5MH0.gRRNF6NHjqJ5jNU1ch69P9qU2C4-d53bG0AqeL68RS8
+Content-Type: application/json
+
+{
+  "currentPassword": "123456789",
+  "newPassword": "12345678910"
+}
 
 ###

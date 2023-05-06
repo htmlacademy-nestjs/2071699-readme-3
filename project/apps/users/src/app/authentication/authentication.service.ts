@@ -1,6 +1,6 @@
 import { ConflictException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { BlogUserRepository } from '../blog-user/blog-user.repository';
-import { CreateUserDto, LoginUserDto } from '@project/shared/shared-dto';
+import { CreateUserDto, LoginUserDto, PasswordDto } from '@project/shared/shared-dto';
 import { UserRole, User } from '@project/shared/shared-types';
 import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from './authentication.constant';
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
@@ -75,5 +75,16 @@ export class AuthenticationService {
         expiresIn: this.jwtOptions.refreshTokenExpiresIn
       })
     }
+  }
+
+
+  public async changePassword(userId, dto: PasswordDto) {
+    const {newPassword} = dto;
+
+    const blogUser = await this.blogUserRepository.findById(userId);
+
+    const userEntity = await new BlogUserEntity(blogUser).setPassword(newPassword)
+
+    return this.blogUserRepository.update(userId, userEntity);
   }
 }
