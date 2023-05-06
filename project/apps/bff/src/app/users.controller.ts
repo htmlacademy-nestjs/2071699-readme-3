@@ -1,9 +1,12 @@
-import { Body, Controller, Post, Req, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from './app.config';
 import { Request } from 'express';
-import { LoginUserDto } from './dto/login-user.dto';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
+import { CreateUserDto, LoginUserDto } from '@project/shared/shared-dto';
+import { MongoidValidationPipe } from '@project/shared/shared-pipes';
+import { UseridInterceptor } from './interceptors/userid.interceptor';
+import { CheckAuthGuard } from './guards/check-auth.guard';
 
 @Controller('users')
 @UseFilters(AxiosExceptionFilter)
@@ -11,6 +14,11 @@ export class UsersController {
   constructor(
     private readonly httpService: HttpService
   ) {}
+  @Post('register')
+  public async create(@Body() createUserDto: CreateUserDto) {
+    const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Users}/register`, createUserDto);
+    return data;
+  }
 
   @Post('login')
   public async login(@Body() loginUserDto: LoginUserDto) {
@@ -28,4 +36,17 @@ export class UsersController {
 
     return data;
   }
+
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(UseridInterceptor)
+  @Get('/:id')
+  public async show(@Req() req: Request, @Param('id', MongoidValidationPipe) id: string) {
+    console.log('show')
+    const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Users}/${id}`,  {
+      headers: {
+        'Authorization': req.headers['authorization']
+      }
+    });
+    return data;
+}
 }

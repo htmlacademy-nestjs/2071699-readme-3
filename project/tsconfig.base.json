@@ -19,6 +19,7 @@
       "@project/config/config-notify": [
         "libs/config/config-notify/src/index.ts"
       ],
+      "@project/config/config-post": ["libs/config/config-post/src/index.ts"],
       "@project/config/config-posts": ["libs/config/config-posts/src/index.ts"],
       "@project/config/config-uploader": [
         "libs/config/config-uploader/src/index.ts"
@@ -27,8 +28,10 @@
       "@project/models/blog-models": ["libs/models/blog-models/src/index.ts"],
       "@project/models/posts-models": ["libs/models/posts-models/src/index.ts"],
       "@project/shared/app-types": ["libs/shared/app-types/src/index.ts"],
+      "@project/shared/shared-dto": ["libs/shared/shared-dto/src/index.ts"],
       "@project/shared/shared-joi": ["libs/shared/shared-joi/src/index.ts"],
       "@project/shared/shared-pipes": ["libs/shared/shared-pipes/src/index.ts"],
+      "@project/shared/shared-query": ["libs/shared/shared-query/src/index.ts"],
       "@project/shared/shared-types": ["libs/shared/shared-types/src/index.ts"],
       "@project/util/util-core": ["libs/util/util-core/src/index.ts"],
       "@project/util/util-types": ["libs/util/util-types/src/index.ts"]

@@ -1,0 +1,32 @@
+# Create a new user
+POST http://localhost:4000/api/users/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "userNew25@notfound.local",
+  "userName": "UserNew",
+  "password": "1234567"
+}
+
+###
+# Login user by email and password
+POST http://localhost:4000/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "userNew2@notfound.local",
+  "password": "1234567"
+}
+
+###
+# Get user by ID
+GET http://localhost:4000/api/users/645523e42c7cf802f4e00a13 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODMzMDYxNzcsImV4cCI6MTY4MzMwNjc3N30.QOu2RsUA0l9sgVsfMPwLiSOFFdyrlw4X099QwqTu4uk
+###
+
+
+# Get new JWT pair
+POST http://localhost:4000/api/users/refresh HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJ0b2tlbklkIjoiYmI4MmIyODMtZDgwMy00MTZkLWE4NWEtOTY4MDM0OWQxNGVjIiwiaWF0IjoxNjgzMjcyMzc0LCJleHAiOjE2ODU4NjQzNzR9.Mv8PUoYMFIY_PEOmo2xUktwGkBl_abSvrN9K6AOABLs
+
+###

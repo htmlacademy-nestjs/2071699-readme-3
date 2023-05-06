@@ -5,9 +5,10 @@ import { ListPostsModule } from './list-posts/list-posts.module';
 import { UserFeedModule } from './user-feed/user-feed.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { BlogTagModule } from './blog-tag/blog-tag.module';
+import { ConfigPostModule } from '@project/config/config-post';
 
 @Module({
-  imports: [BlogPostModule, EditingModule, ListPostsModule, UserFeedModule, PrismaModule, BlogTagModule],
+  imports: [ConfigPostModule, BlogPostModule, BlogPostModule, EditingModule, ListPostsModule, UserFeedModule, PrismaModule, BlogTagModule],
   controllers: [],
   providers: [],
 })

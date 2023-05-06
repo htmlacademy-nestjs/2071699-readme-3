@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CRUDRepository } from '@project/util/util-types';
 import { LikeEntity } from './like.entity';
-import { Like } from '@project/shared/shared-types';
+import { Like, PostState } from '@project/shared/shared-types';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -50,7 +50,22 @@ export class LikeRepository implements CRUDRepository<LikeEntity, number, Like> 
     });
   }
 
-  public async findByPostUser(postId: number, userId: string): Promise<Like> {
+  public async getIsPostStatusPublic(postId: number): Promise<boolean> {
+
+    const post = await this.prisma.post.findFirst({
+      where: {
+        postId,
+        postState: PostState.Public
+      }
+    });
+    if (!post) {
+      return false
+    }
+    return true
+  }
+
+  public async findByPostUser(postId: number, userId: string): Promise<Like | null> {
+
     return this.prisma.like.findFirst({
       where: {
         postId,

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CRUDRepository } from '@project/util/util-types';
 import { CommentEntity } from './comment.entity';
-import { Comment } from '@project/shared/shared-types';
+import { Comment, PostState } from '@project/shared/shared-types';
 import { PrismaService } from '../prisma/prisma.service';
-import { CommentQuery } from './qurey/comment.query';
+import { CommentQuery } from '@project/shared/shared-query';
 
 @Injectable()
 export class CommentRepository implements CRUDRepository<CommentEntity, number, Comment> {
@@ -23,7 +23,7 @@ export class CommentRepository implements CRUDRepository<CommentEntity, number, 
   public async destroy(commentId: number): Promise<void> {
     await this.prisma.comment.delete({
       where: {
-        commentId,
+        commentId
       }
     });
   }
@@ -53,6 +53,31 @@ export class CommentRepository implements CRUDRepository<CommentEntity, number, 
     });
 
 
+  }
+
+  public async findByPostUser(postId: number, userId: string): Promise<Comment> {
+    return this.prisma.comment.findFirst({
+      where: {
+        postId,
+        userId
+      }
+    });
+
+
+  }
+
+  public async getIsPostStatusPublic(postId: number): Promise<boolean> {
+
+    const post = await this.prisma.post.findFirst({
+      where: {
+        postId,
+        postState: PostState.Public
+      }
+    });
+    if (!post) {
+      return false
+    }
+    return true
   }
 
   public update(_id: number, _item: CommentEntity): Promise<Comment> {

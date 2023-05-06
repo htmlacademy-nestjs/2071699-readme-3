@@ -12,6 +12,7 @@ export class BlogPostEntity implements Entity<BlogPostEntity> , Post {
   public isRepost: boolean;
   public userId: string;
   public originUserId: string;
+  public originPostId: number;
   public commentsCount: number;
   public likesCount: number;
 
@@ -37,6 +38,7 @@ export class BlogPostEntity implements Entity<BlogPostEntity> , Post {
     this.isRepost = blogPost.isRepost;
     this.userId = blogPost.userId;
     this.originUserId = blogPost.originUserId;
+    this.originPostId = blogPost.originPostId;
     this.commentsCount = blogPost.commentsCount;
     this.likesCount = blogPost.likesCount;
   }

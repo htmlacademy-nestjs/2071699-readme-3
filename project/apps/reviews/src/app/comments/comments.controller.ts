@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Query } from '@nestjs/common';
-import { CommentDto } from './dto/comment.dto';
+import { CommentDto } from '@project/shared/shared-dto';
 import { fillObject } from '@project/util/util-core';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CommentsService } from './comment.service';
 import { CommentRdo } from './rdo/comment.rdo';
-import { CommentQuery } from './qurey/comment.query';
+import { CommentQuery } from '@project/shared/shared-query';
 
 
 @ApiTags('comments')
@@ -19,9 +19,9 @@ export class CommentsController {
     status: HttpStatus.CREATED,
     description: 'The new post has been successfully created.'
   })
-  @Post('create')
-  public async create(@Body() dto: CommentDto) {
-    const newComment = await this.commentsService.createComment(dto);
+  @Post('create/:postId')
+  public async create(@Param('postId') postId: number, @Body() dto: CommentDto) {
+    const newComment = await this.commentsService.createComment(postId, dto);
     return fillObject(CommentRdo, newComment);
   }
 
@@ -30,9 +30,9 @@ export class CommentsController {
     status: HttpStatus.OK,
     description: 'Delete comment'
   })
-  @Delete('delete/:id')
-  public async delete(@Param('id') id: number) {
-    await this.commentsService.delete(id);
+  @Delete('delete/:postId')
+  public async delete(@Param('postId') postId: number, @Body() body) {
+    await this.commentsService.delete(postId, body.userId);
   }
 
   @ApiResponse({

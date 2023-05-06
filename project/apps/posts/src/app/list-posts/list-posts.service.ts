@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { POST_NOT_FOUND } from '@project/shared/shared-types';
 import { BlogPostRepository } from '../blog-post/blog-post.repository';
-import { PostQuery } from '../blog-post/qurey/post.query';
+import { PostQuery } from '@project/shared/shared-query';
 
 
 @Injectable()
@@ -11,14 +11,37 @@ export class ListPostsService {
   ) {}
 
   public async getListPosts(query: PostQuery) {
-    const existPost = await this.blogPostRepository.find(query);
+    const existPost = await this.blogPostRepository.findAll(query);
+    if (!existPost) {
+      throw new NotFoundException(POST_NOT_FOUND);
+    }
+    return this.blogPostRepository.findAll(query);
+  }
+
+  public async getListPostsDraft(userId: string) {
+    const existPost = await this.blogPostRepository.findDraft(userId);
+    if (!existPost) {
+      throw new NotFoundException(POST_NOT_FOUND);
+    }
+    return this.blogPostRepository.findDraft(userId);
+  }
+
+  async getPostTitle(title: string) {
+
+    const existPost = await this.blogPostRepository.findByTitle(title);
 
     if (!existPost) {
       throw new NotFoundException(POST_NOT_FOUND);
     }
-    return this.blogPostRepository.find(query);
+    return this.blogPostRepository.findByTitle(title);
   }
 
-
-
+  public async getCountPostsUser(userId: string) {
+    console.log('getCountPostsUser', userId)
+    const existPost = await this.blogPostRepository.findUserId(userId);
+    if (!existPost) {
+      throw new NotFoundException(POST_NOT_FOUND);
+    }
+    return (await this.blogPostRepository.findUserId(userId)).length;
+  }
 }

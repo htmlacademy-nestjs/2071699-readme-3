@@ -3,7 +3,7 @@ import { fillObject } from '@project/util/util-core';
 import { PostRdo } from './rdo/post.rdo';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserFeedService } from './user-feed.service';
-import { PostQuery } from '../blog-post/qurey/post.query';
+import { PostQuery } from '@project/shared/shared-query';
 
 @ApiTags('user-feed')
 @Controller('feed')

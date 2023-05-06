@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, UsePipes } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
 import { fillObject } from '@project/util/util-core';
 import { PostRdo } from './rdo/post.rdo';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -7,12 +6,7 @@ import { EditingService } from './editing.service';
 import { RepostRdo } from './rdo/repost.rdo';
 import { PostValidationPipe } from '@project/shared/shared-pipes';
 import { contentValidationSchema } from '@project/shared/shared-joi';
-
-type NewUserId = {
-  userId: string;
-  };
-
-
+import { CreatePostDto, EditPostDto } from '@project/shared/shared-dto';
 
 @ApiTags('editing')
 @Controller('post')
@@ -48,21 +42,11 @@ export class EditingController {
   @ApiResponse({
     type: PostRdo,
     status: HttpStatus.OK,
-    description: 'Post title found'
-  })
-  @Get('title/:title')
-  public async showPostTitle(@Param('title') title: string) {
-    const existPost = await this.editService.getPostTitle(title);
-    return fillObject(PostRdo, existPost);
-  }
-
-  @ApiResponse({
-    type: PostRdo,
-    status: HttpStatus.OK,
     description: 'Edit post'
   })
   @Patch('edit/:id')
-  public async edit(@Param('id') id: number, @Body() dto: CreatePostDto) {
+  public async edit(@Param('id') id: number, @Body() dto: EditPostDto) {
+
     const existPost = await this.editService.updatePostId(id, dto);
     return fillObject(PostRdo, existPost);
   }
@@ -86,8 +70,8 @@ export class EditingController {
     description: 'Repost'
   })
   @Post('repost/:id')
-  public async repost(@Param('id') id: number, @Body() newUserId: NewUserId) {
-    const existPost = await this.editService.repost(id, newUserId.userId);
+  public async repost(@Param('id') id: number, @Body() body) {
+    const existPost = await this.editService.repost(id, body.newUserId);
     return fillObject(RepostRdo, existPost);
   }
 }

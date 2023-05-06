@@ -14,6 +14,7 @@ export interface Post {
   isRepost: boolean;
   userId: string;
   originUserId?: string;
+  originPostId?: number;
   comments?: Comment[];
   commentsCount: number;
   likesCount: number;

@@ -22,6 +22,7 @@ model Post {
   isRepost          Boolean  @default(false) @map("is_repost")
   userId            String?  @map("user_id")
   originUserId      String?  @map("origin_user_id")
+  originPostId      Int?     @map("origin_post_id")
   createdAt         DateTime @default(now()) @map("created_at")
   publishAt         DateTime @updatedAt @map("publish_at")
   comments          Comment[]
@@ -62,7 +63,7 @@ model Feed {
 }
 
 model Like {
-  likeId    Int      @id @default(autoincrement()) @map("comment_id")
+  likeId    Int      @id @default(autoincrement()) @map("like_id")
   userId    String   @map("user_id")
   post      Post     @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
   postId    Int      @map("post_id")

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from '@project/shared/shared-dto';
 import { fillObject } from '@project/util/util-core';
 import { UserRdo } from './rdo/user.rdo';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
@@ -8,9 +8,10 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '@project/shared/shared-pipes';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { NotifyService } from '../notify/notify.service';
-import { RequestWithUser } from '@project/shared/shared-types';
+import { RequestWithTokenPayload, RequestWithUser } from '@project/shared/shared-types';
 import { LocalAuthGuard } from './guards/local-auth-guard';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { PostService } from '../posts/posts.service';
 
 @ApiTags('authentication')
 @Controller('auth')
@@ -18,6 +19,7 @@ export class AuthenticationController {
   constructor(
     private readonly authService: AuthenticationService,
     private readonly notifyService: NotifyService,
+    private readonly postService: PostService,
   ) {}
 
 
@@ -57,7 +59,9 @@ export class AuthenticationController {
   @Get(':id')
   public async show(@Param('id', MongoidValidationPipe) id: string) {
     const existUser = await this.authService.getUser(id);
-    return fillObject(UserRdo, existUser);
+    const countPosts = await this.postService.getCountPosts(id)
+    const userInfo = {existUser, countPosts}
+    return fillObject(UserRdo, userInfo);
   }
 
   @UseGuards(JwtRefreshGuard)
@@ -70,5 +74,14 @@ export class AuthenticationController {
   public async refreshToken(@Req() { user }: RequestWithUser) {
     return this.authService.createUserToken(user);
   }
+
+
+  @UseGuards(JwtAuthGuard)
+  @Post('check')
+  public async checkToken(@Req() { user: payload }: RequestWithTokenPayload) {
+    return payload;
+  }
+
+
 }
 

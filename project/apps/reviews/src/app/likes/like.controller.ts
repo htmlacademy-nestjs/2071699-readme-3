@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post } from '@nestjs/common';
-import { LikeDto } from './dto/like.dto';
 import { fillObject } from '@project/util/util-core';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LikesService } from './like.service';
@@ -18,9 +17,9 @@ export class LikesController {
     status: HttpStatus.CREATED,
     description: 'The new like has been successfully created.'
   })
-  @Post('create')
-  public async create(@Body() dto: LikeDto) {
-    const newLike = await this.likesService.createLike(dto);
+  @Post('create/:id')
+  public async create(@Param('id') id: number, @Body() body) {
+    const newLike = await this.likesService.createLike(id, body.userId);
     return fillObject(LikeRdo, newLike);
   }
 
@@ -29,9 +28,9 @@ export class LikesController {
     status: HttpStatus.OK,
     description: 'Delete like'
   })
-  @Delete('delete')
-  public async delete(@Body() dto: LikeDto) {
-    await this.likesService.delete(dto.postId, dto.userId);
+  @Delete('delete/:id')
+  public async delete(@Param('id') id: number, @Body() body) {
+    await this.likesService.delete(id, body.userId);
   }
 
   @ApiResponse({

@@ -1,9 +1,11 @@
-import { Controller, Get, HttpStatus, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Query } from '@nestjs/common';
 import { fillObject } from '@project/util/util-core';
 import { PostRdo } from './rdo/post.rdo';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ListPostsService } from './list-posts.service';
-import { PostQuery } from '../blog-post/qurey/post.query';
+import { PostQuery } from '@project/shared/shared-query';
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
+import { RabbitRouting } from '@project/shared/shared-types';
 
 @ApiTags('list-posts')
 @Controller('posts')
@@ -23,6 +25,37 @@ export class ListPostsController {
     return fillObject(PostRdo, existPost);
   }
 
+  @ApiResponse({
+    type: PostRdo,
+    status: HttpStatus.OK,
+    description: 'Show list draft posts by user'
+  })
+  @Get('/draft')
+  public async showListDraft(@Body() body) {
+    const existPost = await this.listPostsService.getListPostsDraft(body.userId);
+    return fillObject(PostRdo, existPost);
+  }
 
+  @ApiResponse({
+    type: PostRdo,
+    status: HttpStatus.OK,
+    description: 'Post title found'
+  })
+  @Get('title/:title')
+  public async showPostTitle(@Param('title') title: string) {
+    const existPost = await this.listPostsService.getPostTitle(title);
+    return fillObject(PostRdo, existPost);
+  }
+
+
+  @RabbitSubscribe({
+    exchange: 'readme.posts',
+    routingKey: RabbitRouting.GetPosts,
+    queue: 'readme.posts',
+  })
+  public async getCountPostsUser(userId: string) {
+    console.log('controller post getCountPostsUser');
+    this.listPostsService.getCountPostsUser(userId);
+  }
 }
 

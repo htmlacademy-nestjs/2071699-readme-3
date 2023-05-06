@@ -70,4 +70,10 @@ export class RepostRdo {
   @Expose()
   public originUserId: string;
 
+  @ApiProperty({
+    description: 'ИД оригинальной публикации'
+  })
+  @Expose()
+  public originPostId: string;
+
 }

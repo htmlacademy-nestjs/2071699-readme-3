@@ -3,7 +3,8 @@ import { CRUDRepository } from '@project/util/util-types';
 import { BlogPostEntity } from './blog-post.entity';
 import { Post, PostState, PostType } from '@project/shared/shared-types';
 import { PrismaService } from '../prisma/prisma.service';
-import { PostQuery } from './qurey/post.query';
+import { PostQuery } from '@project/shared/shared-query';
+import { DEFAULT_POST_COUNT_LIMIT_TITLE } from 'libs/shared/shared-query/src/lib/post-query.constants';
 
 @Injectable()
 export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number, Post> {
@@ -50,30 +51,41 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         tags: true,
       }
     });
-    return {...post,
-      postType: PostType[post.postType],
-      postState: PostState[post.postState]
-     }
+
+    if (!post)
+    {
+       return null
+    }
+ return {...post,
+  postType : PostType[post.postType],
+  postState : PostState[post.postState]}
   }
 
 
-  public async findByTitle(title: string): Promise<Post | null> {
-    const post = await this.prisma.post.findFirst({
+  public async findByTitle(title: string): Promise<Post[]> {
+    const posts = await this.prisma.post.findMany({
       where: {
-        title
+        title: {
+          contains: title
+        },
+        postState: PostState.Public
       },
+      take: DEFAULT_POST_COUNT_LIMIT_TITLE,
       include: {
         tags: true,
       }
     });
-    return {...post,
+    const updPosts = posts.map((post) => ({
+      ...post,
       postType: PostType[post.postType],
       postState: PostState[post.postState]
-     }
+    }));
+
+    return updPosts;
   }
 
-  public async find(query: PostQuery): Promise<Post[]> {
-    const {limit, user, sortDirection, sortComments,  sortLikes, page}= query;
+  public async findAll(query: PostQuery): Promise<Post[]> {
+    const {limit, user, sortDirection, sortComments,  sortLikes, page, postType, tag}= query;
     const orderByState= [];
 
     const keys = Object.keys(query);
@@ -86,7 +98,16 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
 
     const posts = await this.prisma.post.findMany({
       where: {
-        userId: user
+        userId: user,
+        postState: PostState.Public,
+        postType: postType,
+        tags: {
+          some: {
+            title: {
+              equals : tag
+            }
+          }
+        }
       },
       take: limit,
       include: {
@@ -110,6 +131,46 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
 
   }
 
+
+  public async findDraft(user: string): Promise<Post[]> {
+    const posts = await this.prisma.post.findMany({
+      where: {
+        userId: user,
+        postState: PostState.Draft
+      },
+      include: {
+        tags: true,
+        comments: true,
+        likes: true
+      },
+    });
+
+
+    const updPosts = posts.map((post) => ({
+      ...post,
+      postType: PostType[post.postType],
+      postState: PostState[post.postState]
+    }));
+
+    return updPosts;
+
+  }
+
+  public async findUserId(user: string): Promise<Post[]> {
+    const posts = await this.prisma.post.findMany({
+      where: {
+        userId: user
+      },
+    });
+    const updPosts = posts.map((post) => ({
+      ...post,
+      postType: PostType[post.postType],
+      postState: PostState[post.postState]
+    }));
+
+    return updPosts;
+
+  }
   public async update(postId: number, item: BlogPostEntity): Promise<Post> {
     const entityData = item.toObject()
         const updPost = await this.prisma.post.update({

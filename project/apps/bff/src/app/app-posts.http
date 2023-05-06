@@ -1,0 +1,66 @@
+# Create a new post
+POST http://localhost:4000/api/post/create HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDQzZjZjOTdhMDQ2YzNiOGY3NWFmNDUiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJLZWtzMyIsImlhdCI6MTY4MzI5OTMyOCwiZXhwIjoxNjgzMjk5OTI4fQ.C-5tOYocpuqs5zIGj0csh8UM0ABF2Q8ATKnuMAWuVsM
+Content-Type: application/json
+
+{
+  "title": " Пост из BFF для теееееееееееекстаааааа",
+  "content": "Пост из BFF для теееееееееееекстааааааПост из BFF для теееееееееееекстааааааПост из BFF для теееееееееееекстааааааПост из BFF для теееееееееееекстаааааа",
+  "addInfo": "eyiOiI2NDNhbCIsInJvbGUiOiJ1c2VyUiOiJLZWtzMyIsImlhdCI6MTY4MzIxMjg5NSwiZXhwIjoxNjgzMjEzNDk1fQ.BzijVlZMvRor3hF6O5l4nGrCwpGMLb7b_aWDM9Z-39U",
+  "tags": [1, 2],
+  "postType": "Text",
+  "isRepost": false
+}
+###
+
+# Get post by ID
+GET http://localhost:4000/api/post/22 HTTP/1.1
+Content-Type: application/json
+###
+
+
+###
+# Delete post by ID
+DELETE  http://localhost:4000/api/post/delete/15 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODMzMjE4NzEsImV4cCI6MTY4MzMyMjQ3MX0.VlE_HeU09SWQnFThfNNNZxGEWD8qUnSzOvlpFczDaUM
+Content-Type: application/json
+###
+
+# Update post
+PATCH  http://localhost:4000/api/post/edit/22 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDQzZjZjOTdhMDQ2YzNiOGY3NWFmNDUiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJLZWtzMyIsImlhdCI6MTY4MzI5OTQ2NywiZXhwIjoxNjgzMzAwMDY3fQ.9vUaIrMvYKoqCiUSRhcOBDbz8WfV5dMc0dl_X3AQ2CQ
+Content-Type: application/json
+
+{
+  "title": " Пост из BFF для ",
+  "content": "Пост из BFF для теееееееееееекстааааааПост из BFF для теееееееееееекстааааааПост из BFF для теееееееееееекстааааааПост из BFF для теееееееееееекстаааааа",
+  "addInfo": "eyiOiI2NDNhbCIsInJvbGUiOiJ1c2VyUiOiJLZWtzMyIsImlhdCI6MTY4MzIxMjg5NSwiZXhwIjoxNjgzMjEzNDk1fQ.BzijVlZMvRor3hF6O5l4nGrCwpGMLb7b_aWDM9Z-39U",
+  "tags": [1, 2],
+  "postType": "Text",
+  "isRepost": false
+}
+
+###
+#  Repost by ID
+POST  http://localhost:4000/api/post/repost/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDQzZjZjOTdhMDQ2YzNiOGY3NWFmNDUiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJLZWtzMyIsImlhdCI6MTY4MzI2OTQ5MCwiZXhwIjoxNjgzMjcwMDkwfQ.MttHn1VTObkF8Fn-p7bimC0pdNoB5b7U-Y3kUhs50Rc
+Content-Type: application/json
+
+###
+
+
+# Get all posts and filtres
+GET http://localhost:4000/api/posts?user=6443f6c97a046c3b8f75af45&sortDirection=desc&sortComments=desc&limit=15&page=1 HTTP/1.1
+
+###
+
+# Get draft posts bu User
+GET http://localhost:4000/api/posts/draft HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDQzZjZjOTdhMDQ2YzNiOGY3NWFmNDUiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJLZWtzMyIsImlhdCI6MTY4MzI5NjcyOSwiZXhwIjoxNjgzMjk3MzI5fQ.a9Au4CNk1DQcVRGX0ZP--XmSAJbgWVv2NvNNz3axsaY
+Content-Type: application/json
+###
+
+# Get post by TITLE
+GET http://localhost:4000/api/posts/title/Байкал  HTTP/1.1
+Content-Type: application/json
+###

@@ -1,27 +1,25 @@
 # Create a new post
-POST http://localhost:3333/api/like/create HTTP/1.1
+POST http://localhost:3335/api/like/create/4 HTTP/1.1
 Content-Type: application/json
 
 {
-  "postId": 1,
   "userId": "888"
 }
 
 ###
 
 # Get post by ID
-GET http://localhost:3333/api/like/1 HTTP/1.1
+GET http://localhost:3335/api/like/1 HTTP/1.1
 Content-Type: application/json
 ###
 
 
 
 # Delete post by ID
-DELETE  http://localhost:3333/api/like/delete HTTP/1.1
+DELETE  http://localhost:3335/api/like/delete/1 HTTP/1.1
 Content-Type: application/json
 
 {
-  "postId": 1,
   "userId": "888"
 }
 ###

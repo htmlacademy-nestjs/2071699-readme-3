@@ -1,10 +1,9 @@
 import { ConflictException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { BlogUserRepository } from '../blog-user/blog-user.repository';
-import { CreateUserDto } from './dto/create-user.dto';
-import { TokenPayload, UserRole, User } from '@project/shared/shared-types';
+import { CreateUserDto, LoginUserDto } from '@project/shared/shared-dto';
+import { UserRole, User } from '@project/shared/shared-types';
 import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from './authentication.constant';
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
-import { LoginUserDto } from './dto/login-user.dto';
 import { JwtService  } from '@nestjs/jwt';
 import { jwtConfig } from '@project/config/config-users';
 import { ConfigType } from '@nestjs/config';

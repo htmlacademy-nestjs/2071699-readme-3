@@ -31,4 +31,10 @@ export class UserRdo {
   @Expose()
   public userName: string;
 
+  @ApiProperty({
+    description: 'Count posts',
+  })
+  @Expose()
+  public countPosts: string;
+
 }

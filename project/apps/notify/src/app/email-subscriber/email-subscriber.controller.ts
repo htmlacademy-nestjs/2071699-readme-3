@@ -18,7 +18,6 @@ export class EmailSubscriberController {
     queue: 'readme.notify',
   })
   public async create(subscriber: CreateSubscriberDto) {
-    console.log(subscriber);
     this.subscriberService.addSubscriber(subscriber);
     this.mailService.sendNotifyNewSubscriber(subscriber);
   }
