@@ -30,15 +30,15 @@ export class BlogTagService {
   async findAndCreateTag(tagsName: string[]): Promise<Tag[]> {
 
 const arr = await Promise.all(tagsName.map(async (tag) => {
-  console.log(tag);
+
  const existsTag = await this.blogTagRepository.findByTitle(tag);
- console.log('existsTag',existsTag);
+
    if (!existsTag) {
       const tagEntity = new BlogTagEntity({title: tag});
       await this.blogTagRepository.create(tagEntity);
     }
   }));
-  console.log(arr);
+
       return this.blogTagRepository.findByTitleArr(tagsName);
   }
 

@@ -8,7 +8,14 @@ import { BlogTagModule } from './blog-tag/blog-tag.module';
 import { ConfigPostModule } from '@project/config/config-post';
 
 @Module({
-  imports: [ConfigPostModule, BlogPostModule, BlogPostModule, EditingModule, ListPostsModule, UserFeedModule, PrismaModule, BlogTagModule],
+  imports: [
+    ConfigPostModule,
+    BlogPostModule,
+    EditingModule,
+    ListPostsModule,
+    UserFeedModule,
+    PrismaModule,
+    BlogTagModule],
   controllers: [],
   providers: [],
 })

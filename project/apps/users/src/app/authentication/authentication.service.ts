@@ -63,6 +63,10 @@ export class AuthenticationService {
     return this.blogUserRepository.findById(id);
   }
 
+  public async getUserCreateData(id: string) {
+    return this.blogUserRepository.findCreateDataById(id);
+  }
+
   public async createUserToken(user: User) {
     const accessTokenPayload = createJWTPayload(user);
     const refreshTokenPayload = { ...accessTokenPayload, tokenId: crypto.randomUUID() };

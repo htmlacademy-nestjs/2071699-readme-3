@@ -13,18 +13,10 @@ export class PostService {
   ) {}
 
   public async getCountPosts(userId: string) {
-    console.log('getCountPosts')
-    const countPosts = await this.rabbitClient.publish<string>(
-      'readme.posts',
-      RabbitRouting.GetPosts,
-      userId
-    )
-    console.log(countPosts)
-
-    return this.rabbitClient.publish<string>(
-      'readme.posts',
-      RabbitRouting.GetPosts,
-      userId
+    return this.rabbitClient.request<string>(
+      {exchange: 'readme.posts',
+      routingKey: RabbitRouting.GetPosts,
+      payload: userId}
     );
   }
 }

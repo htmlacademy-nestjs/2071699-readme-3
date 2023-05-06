@@ -31,7 +31,6 @@ export class BlogTagRepository implements CRUDRepository<BlogTagEntity, number, 
   }
 
   public findByTitle(tagName: string): Promise<Tag | null> {
-    console.log('findByTitle', tagName)
     return this.prisma.tag.findFirst({
       where: {
         title: tagName

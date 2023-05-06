@@ -1,6 +1,8 @@
-import { Document } from 'mongoose';
+import { Document, now } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { User, UserRole } from '@project/shared/shared-types';
+
+
 
 @Schema({
   collection: 'users',
@@ -33,6 +35,9 @@ export class BlogUserModel extends Document implements User {
     default: UserRole.User,
   })
   public role: UserRole;
+
+  @Prop({default: now()})
+  createdAt: Date;
 }
 
 export const BlogUserSchema = SchemaFactory.createForClass(BlogUserModel);

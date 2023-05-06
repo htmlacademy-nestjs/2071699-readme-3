@@ -4,8 +4,9 @@ import { PostRdo } from './rdo/post.rdo';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ListPostsService } from './list-posts.service';
 import { PostQuery } from '@project/shared/shared-query';
-import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
+import { RabbitRPC } from '@golevelup/nestjs-rabbitmq';
 import { RabbitRouting } from '@project/shared/shared-types';
+import { CountPostRdo } from './rdo/count-post.rdo';
 
 @ApiTags('list-posts')
 @Controller('posts')
@@ -48,14 +49,14 @@ export class ListPostsController {
   }
 
 
-  @RabbitSubscribe({
+  @RabbitRPC({
     exchange: 'readme.posts',
     routingKey: RabbitRouting.GetPosts,
     queue: 'readme.posts',
   })
   public async getCountPostsUser(userId: string) {
-    console.log('controller post getCountPostsUser');
-    this.listPostsService.getCountPostsUser(userId);
+    const countPosts = await this.listPostsService.getCountPostsUser(userId);
+    return fillObject(CountPostRdo, countPosts);
   }
 }
 

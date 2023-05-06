@@ -8,6 +8,7 @@ export function getMongoConnectionString({username, password, host, port, databa
   return `mongodb://${username}:${password}@${host}:${port}/${databaseName}?authSource=${authDatabase}`;
 }
 export function getRabbitMQConnectionString({user, password, host, port}): string {
+  console.log({user, password, host, port})
   return `amqp://${user}:${password}@${host}:${port}`;
 }
 

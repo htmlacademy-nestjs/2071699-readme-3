@@ -12,6 +12,7 @@ import { RequestWithTokenPayload, RequestWithUser } from '@project/shared/shared
 import { LocalAuthGuard } from './guards/local-auth-guard';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { PostService } from '../posts/posts.service';
+import { UserInfoRdo } from './rdo/user-info.rdo';
 
 @ApiTags('authentication')
 @Controller('auth')
@@ -51,17 +52,21 @@ export class AuthenticationController {
   }
 
   @ApiResponse({
-    type: UserRdo,
+    type: UserInfoRdo,
     status: HttpStatus.OK,
     description: 'User found'
   })
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   public async show(@Param('id', MongoidValidationPipe) id: string) {
-    const existUser = await this.authService.getUser(id);
+    const createData = await this.authService.getUserCreateData(id);
     const countPosts = await this.postService.getCountPosts(id)
-    const userInfo = {existUser, countPosts}
-    return fillObject(UserRdo, userInfo);
+    const userInfo = {
+      _id: id,
+      createdAt: createData,
+      countPosts: countPosts}
+    console.log('userInfo', userInfo)
+    return userInfo;
   }
 
   @UseGuards(JwtRefreshGuard)

@@ -7,10 +7,10 @@ import { getRabbitMQOptions } from '@project/util/util-core';
 
 @Module({
   imports: [
-   /* RabbitMQModule.forRootAsync(
+    RabbitMQModule.forRootAsync(
       RabbitMQModule,
       getRabbitMQOptions('application.rabbit')
-    ),*/
+    ),
     BlogPostModule],
   controllers: [ListPostsController],
   providers: [ListPostsService]})

@@ -12,7 +12,8 @@ Content-Type: application/json
 
 # Get user by ID
 GET http://localhost:3333/api/auth/6443f6c97a046c3b8f75af45 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODMzNTcxNzQsImV4cCI6MTY4MzM1Nzc3NH0.UFWePbN31GCaDkvNPw7yj85N4g3HU-21C4SYMNf4lG0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODM0MTE2OTcsImV4cCI6MTY4MzQxMjI5N30.4vokGQlWV5aLmk2_k17wFdQUhbLbvGf0UVFqFqCH_nI
+Content-Type: application/json
 ###
 
 # Login user by email and password
@@ -21,7 +22,7 @@ Content-Type: application/json
 
 {
   "email": "userNew2@notfound.local",
-  "password": "123456789"
+  "password": "12345678910"
 }
 
 ###

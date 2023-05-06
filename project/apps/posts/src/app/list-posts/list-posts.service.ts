@@ -37,7 +37,6 @@ export class ListPostsService {
   }
 
   public async getCountPostsUser(userId: string) {
-    console.log('getCountPostsUser', userId)
     const existPost = await this.blogPostRepository.findUserId(userId);
     if (!existPost) {
       throw new NotFoundException(POST_NOT_FOUND);

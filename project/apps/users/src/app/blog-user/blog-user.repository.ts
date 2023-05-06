@@ -6,6 +6,7 @@ import { BlogUserModel } from './blog-user.model';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
+
 @Injectable()
 export class BlogUserRepository implements CRUDRepository<BlogUserEntity, string, User> {
   constructor(
@@ -22,11 +23,17 @@ export class BlogUserRepository implements CRUDRepository<BlogUserEntity, string
   }
 
   public async findById(id: string): Promise<User | null> {
-    return this.blogUserModel
+     return this.blogUserModel
       .findOne({_id: id})
       .exec();
   }
 
+  public async findCreateDataById(id: string): Promise<string> {
+    const existsUser = await  this.blogUserModel
+     .findOne({_id: id})
+     .exec();
+     return  existsUser.createdAt.toDateString()
+ }
   public async findByEmail(email: string): Promise<User | null> {
     return this.blogUserModel
       .findOne({email})
