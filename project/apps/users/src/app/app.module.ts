@@ -6,11 +6,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { NotifyModule } from './notify/notify.module';
 import { PostModule } from './posts/posts.module';
 import { ConfigPostModule } from '@project/config/config-post';
+import { UsersSubscriptionsModule } from './users-subscriptions/users-subscriptions.module';
 
 @Module({
   imports: [
     AuthenticationModule,
     BlogUserModule,
+    UsersSubscriptionsModule,
     ConfigUsersModule,
     ConfigPostModule,
     NotifyModule,
