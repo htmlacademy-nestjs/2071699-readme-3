@@ -11,10 +11,12 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 import { RefreshTokenModule } from '../refresh-token/refresh-token.module';
 import { PostModule } from '../posts/posts.module';
+import { UsersSubscriptionsModule } from '../users-subscriptions/users-subscriptions.module';
 
 @Module({
   imports: [
     BlogUserModule,
+    UsersSubscriptionsModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: getJwtOptions

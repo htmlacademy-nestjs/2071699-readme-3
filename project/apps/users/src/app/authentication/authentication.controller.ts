@@ -13,6 +13,7 @@ import { LocalAuthGuard } from './guards/local-auth-guard';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { PostService } from '../posts/posts.service';
 import { UserInfoRdo } from './rdo/user-info.rdo';
+import { UsersSubscriptionsService } from '../users-subscriptions/users-subscriptions.service';
 
 @ApiTags('authentication')
 @Controller('auth')
@@ -21,6 +22,7 @@ export class AuthenticationController {
     private readonly authService: AuthenticationService,
     private readonly notifyService: NotifyService,
     private readonly postService: PostService,
+    private readonly usersSubscriptionsService: UsersSubscriptionsService,
   ) {}
 
 
@@ -61,10 +63,12 @@ export class AuthenticationController {
   public async show(@Param('id', MongoidValidationPipe) id: string) {
     const createData = await this.authService.getUserCreateData(id);
     const countPosts = await this.postService.getCountPosts(id)
+    const countSubscriptions = await this.usersSubscriptionsService.getByUserSubscriptionId(id)
     const userInfo = {
       _id: id,
       createdAt: createData,
-      countPosts: countPosts}
+      countPosts: countPosts,
+      countSubscriptions: countSubscriptions.length}
     return userInfo;
   }
 

@@ -10,6 +10,7 @@ import { UsersSubscriptionsController } from './users-subscriptions.controller';
     { name: UsersSubscriptionsModel.name, schema: UsersSubscriptionsSchema }
   ])],
   controllers: [UsersSubscriptionsController],
-  providers: [UsersSubscriptionsService, UsersSubscriptionsRepository]
+  providers: [UsersSubscriptionsService, UsersSubscriptionsRepository],
+  exports: [UsersSubscriptionsService]
 })
 export class UsersSubscriptionsModule {}
