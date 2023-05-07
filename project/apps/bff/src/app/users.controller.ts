@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Param, Post, Req, UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req, UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from './app.config';
 import { Request } from 'express';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
-import { CreateUserDto, LoginUserDto, PasswordDto } from '@project/shared/shared-dto';
+import { CreateUserDto, LoginUserDto, PasswordDto, UserSubscriptionDto } from '@project/shared/shared-dto';
 import { MongoidValidationPipe } from '@project/shared/shared-pipes';
 import { UseridInterceptor } from './interceptors/userid.interceptor';
 import { CheckAuthGuard } from './guards/check-auth.guard';
@@ -61,5 +61,22 @@ public async changePassword(@Req() req: Request, @Body() dto: PasswordDto) {
   return data;
 }
 
+@UseGuards(CheckAuthGuard)
+@UseInterceptors(UseridInterceptor)
+@Post('subscription/create')
+public async createSubscription( @Body() dto: UserSubscriptionDto) {
+
+  const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Subscription}/create`, dto);
+  return data;
+}
+
+@UseGuards(CheckAuthGuard)
+@UseInterceptors(UseridInterceptor)
+@Delete('subscription/delete')
+public async deleteSubscription( @Body() dto: UserSubscriptionDto) {
+
+  const { data } = await this.httpService.axiosRef.delete(`${ApplicationServiceURL.Subscription}/delete`, {data : dto});
+  return data;
+}
 
 }

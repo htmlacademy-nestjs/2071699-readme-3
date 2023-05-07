@@ -1,5 +1,6 @@
 export enum ApplicationServiceURL {
   Users = 'http://localhost:3333/api/auth',
+  Subscription = 'http://localhost:3333/api/subscription',
   Post = 'http://localhost:3334/api/post',
   Posts = 'http://localhost:3334/api/posts',
   Likes = 'http://localhost:3335/api/like',

@@ -18,10 +18,11 @@ Content-Type: application/json
   "password": "12345678910"
 }
 
+
 ###
 # Get user by ID
-GET http://localhost:4000/api/users/645523e42c7cf802f4e00a13 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODMzMDYxNzcsImV4cCI6MTY4MzMwNjc3N30.QOu2RsUA0l9sgVsfMPwLiSOFFdyrlw4X099QwqTu4uk
+GET http://localhost:4000/api/users/6454b277f6a8413b8a2704b9 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODM0ODM4MjgsImV4cCI6MTY4MzQ4NDQyOH0.YHr-0TAhUXXNLihDnjbuSot0R1A5NDzsuNw4RhUAnm4
 ###
 
 
@@ -41,4 +42,25 @@ Content-Type: application/json
   "newPassword": "12345678910"
 }
 
+###
+
+# Create a new subscription
+POST http://localhost:4000/api/users/subscription/create HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU1MjNlNDJjN2NmODAyZjRlMDBhMTMiLCJlbWFpbCI6InVzZXJOZXcyNUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNDgyOTE5LCJleHAiOjE2ODM0ODM1MTl9.T-yxWicUPqwY4SfnOs7tUI8fsAfBKFpWqO0vpEYNjkc
+Content-Type: application/json
+
+{
+  "userSubscriptionId": "6454b277f6a8413b8a2704b9"
+}
+
+###
+
+# Delete subscription by UserID
+DELETE  http://localhost:4000/api/users/subscription/delete HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU1MjNlNDJjN2NmODAyZjRlMDBhMTMiLCJlbWFpbCI6InVzZXJOZXcyNUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNDgzODA0LCJleHAiOjE2ODM0ODQ0MDR9.7sicweE9LYk_hKA5KxX84Zk5FTYyWL_D3EIaqcBY56U
+Content-Type: application/json
+
+{
+  "userSubscriptionId": "6454b277f6a8413b8a2704b9"
+}
 ###
