@@ -3,8 +3,8 @@ POST http://localhost:3333/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "userNew77@notfound.local",
-  "userName": "UserNew",
+  "email": "userNew87@notfound.local",
+  "userName": "UserNew87",
   "password": "1234567"
 }
 

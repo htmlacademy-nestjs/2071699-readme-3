@@ -65,7 +65,6 @@ export class AuthenticationController {
       _id: id,
       createdAt: createData,
       countPosts: countPosts}
-    console.log('userInfo', userInfo)
     return userInfo;
   }
 
