@@ -17,9 +17,15 @@ export class UserInfoRdo {
   public createdAt: string;
 
   @ApiProperty({
+    description: 'Count subscriptions',
+  })
+  @Expose()
+  public countSubscriptions: number;
+
+  @ApiProperty({
     description: 'Count posts',
   })
   @Expose()
-  public countPosts: string;
+  public countPosts: number;
 
 }
