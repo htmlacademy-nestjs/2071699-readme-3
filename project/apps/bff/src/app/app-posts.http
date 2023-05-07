@@ -1,13 +1,13 @@
 # Create a new post
 POST http://localhost:4000/api/post/create HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDQzZjZjOTdhMDQ2YzNiOGY3NWFmNDUiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJLZWtzMyIsImlhdCI6MTY4MzI5OTMyOCwiZXhwIjoxNjgzMjk5OTI4fQ.C-5tOYocpuqs5zIGj0csh8UM0ABF2Q8ATKnuMAWuVsM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODM0NTg2MTAsImV4cCI6MTY4MzQ1OTIxMH0.c7Gyj9jd33nkLKH1QNdnXzpSMbOH7ROcdBV5Ufv-xe8
 Content-Type: application/json
 
 {
   "title": " Пост из BFF для теееееееееееекстаааааа",
   "content": "Пост из BFF для теееееееееееекстааааааПост из BFF для теееееееееееекстааааааПост из BFF для теееееееееееекстааааааПост из BFF для теееееееееееекстаааааа",
   "addInfo": "eyiOiI2NDNhbCIsInJvbGUiOiJ1c2VyUiOiJLZWtzMyIsImlhdCI6MTY4MzIxMjg5NSwiZXhwIjoxNjgzMjEzNDk1fQ.BzijVlZMvRor3hF6O5l4nGrCwpGMLb7b_aWDM9Z-39U",
-  "tags": [1, 2],
+  "tags": ["tag1", "tag2"],
   "postType": "Text",
   "isRepost": false
 }
