@@ -4,9 +4,10 @@ import { EditingController } from './editing.controller';
 import { EditingService } from './editing.service';
 import { BlogTagModule } from '../blog-tag/blog-tag.module';
 import { BlogTagService } from '../blog-tag/blog-tag.service';
+import { SubscribersModule } from '../subscribers/subscribers.module';
 
 @Module({
-  imports: [BlogPostModule, BlogTagModule],
+  imports: [BlogPostModule, BlogTagModule, SubscribersModule],
   controllers: [EditingController],
   providers: [EditingService, BlogTagService]
 })

@@ -7,12 +7,14 @@ import { RepostRdo } from './rdo/repost.rdo';
 import { PostValidationPipe } from '@project/shared/shared-pipes';
 import { contentValidationSchema } from '@project/shared/shared-joi';
 import { CreatePostDto, EditPostDto } from '@project/shared/shared-dto';
+import { SubscribersService } from '../subscribers/subscribers.service';
 
 @ApiTags('editing')
 @Controller('post')
 export class EditingController {
   constructor(
-    private readonly editService: EditingService
+    private readonly editService: EditingService,
+    private readonly subscribersService: SubscribersService
   ) {}
 
 
@@ -24,6 +26,7 @@ export class EditingController {
   @UsePipes(new PostValidationPipe(contentValidationSchema))
   public async create(@Body() dto: CreatePostDto) {
     const newPost = await this.editService.createPost(dto);
+    await this.subscribersService.postSuscribers(newPost)
     return fillObject(PostRdo, newPost);
   }
 
