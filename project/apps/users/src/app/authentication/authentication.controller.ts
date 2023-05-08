@@ -37,6 +37,8 @@ export class AuthenticationController {
     await this.notifyService.registerSubscriber({ email, userName })
     return fillObject(UserRdo, newUser);
   }
+
+
   @UseGuards(LocalAuthGuard)
   @ApiResponse({
     type: LoggedUserRdo,
@@ -53,26 +55,7 @@ export class AuthenticationController {
     return this.authService.createUserToken(user);
   }
 
-  @ApiResponse({
-    type: UserInfoRdo,
-    status: HttpStatus.OK,
-    description: 'User found'
-  })
-  @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  public async show(@Param('id', MongoidValidationPipe) id: string) {
-    const createData = await this.authService.getUserCreateData(id);
-    const countPosts = await this.postService.getCountPosts(id)
-    const countSubscriptions = await this.usersSubscriptionsService.getByUserSubscriptionId(id)
-    const userInfo = {
-      _id: id,
-      createdAt: createData,
-      countPosts: countPosts,
-      countSubscriptions: countSubscriptions.length}
-    return userInfo;
-  }
-
-  @UseGuards(JwtRefreshGuard)
+ @UseGuards(JwtRefreshGuard)
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
@@ -104,6 +87,42 @@ export class AuthenticationController {
     await this.authService.verifyUser(loginUser);
     return this.authService.changePassword(sub, dto);
 
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Start sending notifications at the users request.'
+  })
+  @Get('notify/newposts')
+  public async getPostsAndNotify(@Req() { user: payload }: RequestWithTokenPayload) {
+    const {sub, email} = payload;
+    const lastNotifyDate = await this.authService.findNotifyByUser(sub);
+    const listPosts = await this.postService.geNewtPosts(lastNotifyDate.dateNotify);
+
+    const currentDate = new Date();
+    await this.notifyService.notifyNewPosts({userId: sub, email, posts:listPosts, dateSend: currentDate.toDateString() })
+    await this.authService.createOrUpdateNotify(sub, currentDate)
+   return listPosts;
+  }
+
+    @ApiResponse({
+    type: UserInfoRdo,
+    status: HttpStatus.OK,
+    description: 'User found'
+  })
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  public async show(@Param('id', MongoidValidationPipe) id: string) {
+    const createData = await this.authService.getUserCreateData(id);
+    const countPosts = await this.postService.getCountPosts(id)
+    const countSubscriptions = await this.usersSubscriptionsService.getByUserSubscriptionId(id)
+    const userInfo = {
+      _id: id,
+      createdAt: createData,
+      countPosts: countPosts,
+      countSubscriptions: countSubscriptions.length}
+    return userInfo;
   }
 
 }

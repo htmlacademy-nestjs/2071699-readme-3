@@ -7,6 +7,7 @@ import { NotifyModule } from './notify/notify.module';
 import { PostModule } from './posts/posts.module';
 import { ConfigPostModule } from '@project/config/config-post';
 import { UsersSubscriptionsModule } from './users-subscriptions/users-subscriptions.module';
+import { NotifyDateModule } from './date-notify/date-notify.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UsersSubscriptionsModule } from './users-subscriptions/users-subscripti
     ConfigUsersModule,
     ConfigPostModule,
     NotifyModule,
+    NotifyDateModule,
     PostModule,
     MongooseModule.forRootAsync(
       getMongooseOptions()

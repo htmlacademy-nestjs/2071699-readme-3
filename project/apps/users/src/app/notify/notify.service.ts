@@ -4,6 +4,7 @@ import { rabbitConfig } from '@project/config/config-users';
 import { ConfigType } from '@nestjs/config';
 import { CreateSubscriberDto } from './dto/create-subscriber.dto';
 import { RabbitRouting } from '@project/shared/shared-types';
+import { NotifyPostsDto } from './dto/notify-posts.dto';
 
 @Injectable()
 export class NotifyService {
@@ -17,6 +18,14 @@ export class NotifyService {
     return this.rabbitClient.publish<CreateSubscriberDto>(
       this.rabbiOptions.exchange,
       RabbitRouting.AddSubscriber,
+      { ...dto }
+    );
+  }
+
+  public async notifyNewPosts(dto: NotifyPostsDto) {
+    return this.rabbitClient.publish<NotifyPostsDto>(
+      this.rabbiOptions.exchange,
+      RabbitRouting.AddNotifyPosts,
       { ...dto }
     );
   }
