@@ -1,4 +1,6 @@
 export enum RabbitRouting {
   AddSubscriber = 'notify.addSubscriber',
-  GetPosts = 'posts.getCountPostsUser'
+  GetCountPosts = 'posts.getCountPostsUser',
+  GeNewtPosts = 'posts.getNewPosts',
+  AddNotifyPosts = 'notify.addNotifyPosts'
 }

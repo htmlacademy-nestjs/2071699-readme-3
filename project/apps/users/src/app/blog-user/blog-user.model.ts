@@ -38,6 +38,9 @@ export class BlogUserModel extends Document implements User {
 
   @Prop({default: now()})
   createdAt: Date;
+
+  @Prop({default: now()})
+  lastDateSend: Date;
 }
 
 export const BlogUserSchema = SchemaFactory.createForClass(BlogUserModel);

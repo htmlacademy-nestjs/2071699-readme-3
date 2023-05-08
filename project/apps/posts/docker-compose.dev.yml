@@ -4,8 +4,8 @@ services:
     image: rabbitmq:3.11-management
     container_name: readme.posts.rabbitmq
     ports:
-      - '1088:15672'
-      - '5672:5672'
+      - '1087:15672'
+      - '5673:5672'
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: test

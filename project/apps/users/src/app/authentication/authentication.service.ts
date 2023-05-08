@@ -10,6 +10,8 @@ import { ConfigType } from '@nestjs/config';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
 import { createJWTPayload } from '@project/util/util-core';
 import * as crypto from 'node:crypto';
+import { NotifyDateRepository } from '../date-notify/date-notify.repository';
+import { NotifyDateEntity } from '../date-notify/date-notify.entity';
 
 
 @Injectable()
@@ -19,6 +21,7 @@ export class AuthenticationService {
     private readonly jwtService: JwtService,
     @Inject (jwtConfig.KEY) private readonly jwtOptions: ConfigType<typeof jwtConfig>,
     private readonly refreshTokenService: RefreshTokenService,
+    private readonly notifyDateRepository: NotifyDateRepository,
   ) {}
 
   public async register(dto: CreateUserDto) {
@@ -81,14 +84,20 @@ export class AuthenticationService {
     }
   }
 
-
   public async changePassword(userId, dto: PasswordDto) {
     const {newPassword} = dto;
-
     const blogUser = await this.blogUserRepository.findById(userId);
-
     const userEntity = await new BlogUserEntity(blogUser).setPassword(newPassword)
-
     return this.blogUserRepository.update(userId, userEntity);
+  }
+
+
+  public async createOrUpdateNotify(userId: string, dateNotify: Date) {
+    const notifyEntity = await new NotifyDateEntity({userId, dateNotify})
+    return this.notifyDateRepository.createOrUpdate(notifyEntity);
+  }
+
+  public async findNotifyByUser(userId: string) {
+    return this.notifyDateRepository.findByUserId(userId);
   }
 }

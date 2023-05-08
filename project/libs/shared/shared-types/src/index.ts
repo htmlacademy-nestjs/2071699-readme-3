@@ -16,3 +16,6 @@ export * from './lib/refresh-token-payload.interface';
 export * from './lib/token.interface';
 export * from './lib/request-with-token-payload';
 export * from './lib/user-subscription.interface';
+export * from './lib/notify-posts.interface';
+export * from './lib/post-for-send.interface';
+export * from './lib/notify-date.interface';

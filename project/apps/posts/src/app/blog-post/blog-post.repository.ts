@@ -143,16 +143,12 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         likes: true
       },
     });
-
-
     const updPosts = posts.map((post) => ({
       ...post,
       postType: PostType[post.postType],
       postState: PostState[post.postState]
     }));
-
     return updPosts;
-
   }
 
   public async findUserId(user: string): Promise<Post[]> {
@@ -195,5 +191,32 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
           postState: PostState[updPost.postState]
          }
     }
+
+
+    public async findPostsAfterDate(date: Date): Promise<Post[]> {
+    const posts = await this.prisma.post.findMany({
+        where: {
+          createdAt: {
+            gt: date,
+        }
+        },
+        include: {
+          tags: true,
+          comments: true,
+          likes: true
+        }
+      });
+
+      const updPosts = posts.map((post) => ({
+        ...post,
+        postType: PostType[post.postType],
+        postState: PostState[post.postState]
+      }));
+
+      return updPosts;
+
+    }
+
+
   }
 

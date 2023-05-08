@@ -18,6 +18,10 @@ export class ListPostsService {
     return this.blogPostRepository.findAll(query);
   }
 
+  public async getListPostsAfterDate(date: Date) {
+    return this.blogPostRepository.findPostsAfterDate(date);
+  }
+
   public async getListPostsDraft(userId: string) {
     const existPost = await this.blogPostRepository.findDraft(userId);
     if (!existPost) {

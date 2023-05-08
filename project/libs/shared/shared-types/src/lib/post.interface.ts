@@ -18,4 +18,5 @@ export interface Post {
   comments?: Comment[];
   commentsCount: number;
   likesCount: number;
+  createdAt?: Date;
 }
