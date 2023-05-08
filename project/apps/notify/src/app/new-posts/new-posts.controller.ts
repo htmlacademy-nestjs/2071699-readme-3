@@ -18,8 +18,9 @@ export class NewPostsController {
     queue: 'readme.notify.posts',
   })
   public async create(dto: NotifyPostsDto) {
+
     this.newPostsService.addNotifyPosts(dto);
-    const postsStr = dto.posts.map((el, index) => index.toString() +'. ' + el.postType + '\n' + el.title + '\n' + el.content + '\n' + el.addInfo).join('\n')
+    const postsStr = dto.posts.map((el) => el.postType + '\n' + el.title + '\n' + el.content + '\n' + el.addInfo).join('\n')
     this.mailService.sendNotifyNewPosts(dto.email, postsStr);
   }
 }

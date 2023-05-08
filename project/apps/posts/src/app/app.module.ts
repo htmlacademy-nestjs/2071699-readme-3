@@ -6,6 +6,7 @@ import { UserFeedModule } from './user-feed/user-feed.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { BlogTagModule } from './blog-tag/blog-tag.module';
 import { ConfigPostModule } from '@project/config/config-post';
+import { SubscribersModule } from './subscribers/subscribers.module';
 
 @Module({
   imports: [
@@ -15,7 +16,9 @@ import { ConfigPostModule } from '@project/config/config-post';
     ListPostsModule,
     UserFeedModule,
     PrismaModule,
-    BlogTagModule],
+    BlogTagModule,
+    SubscribersModule
+],
   controllers: [],
   providers: [],
 })
