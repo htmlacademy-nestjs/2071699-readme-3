@@ -39,7 +39,7 @@ export class NotifyDateRepository implements CRUDRepository<NotifyDateEntity, st
     const existsNotify = await this.notifyDateModel.findOne({userId: item.userId}).exec();
 
     if (existsNotify) {
-      return this.notifyDateModel.findByIdAndUpdate(item._id, item.toObject(), {new: true}).exec();
+      return this.notifyDateModel.findByIdAndUpdate(existsNotify.id, item.toObject(), {new: true}).exec();
 
     }
     const newNotifyDate = new this.notifyDateModel(item);
