@@ -14,8 +14,8 @@ POST http://localhost:4000/api/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "userNew2@notfound.local",
-  "password": "12345678910"
+  "email": "userNew25@notfound.local",
+  "password": "1234567"
 }
 
 
@@ -63,4 +63,10 @@ Content-Type: application/json
 {
   "userSubscriptionId": "6454b277f6a8413b8a2704b9"
 }
+###
+# Get new posts
+GET http://localhost:4000/api/users/notify/newposts HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU1MjNlNDJjN2NmODAyZjRlMDBhMTMiLCJlbWFpbCI6InVzZXJOZXcyNUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNTM2MTkyLCJleHAiOjE2ODM1MzY3OTJ9.hAcUf2pohvCRvD4QSnbNYPpglqNzdNDtyh_c47rM3qY
+Content-Type: application/json
+
 ###

@@ -79,4 +79,18 @@ public async deleteSubscription( @Body() dto: UserSubscriptionDto) {
   return data;
 }
 
+
+@UseGuards(CheckAuthGuard)
+@UseInterceptors(UseridInterceptor)
+@Get('notify/newposts')
+public async getPostsAndNotify(@Req() req: Request) {
+
+  const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Users}/notify/newposts`, {
+    headers: {
+      'Authorization': req.headers['authorization']
+    }
+  });
+  return data;
+}
+
 }
