@@ -1,0 +1,4 @@
+curl -i -H 'Accept: application/json' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDVhNTEyMDdiYTA0M2ZmZGFiYTA1MjQiLCJlbWFpbCI6InVzZXI2NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNjQwNjE5LCJleHAiOjE2ODM2NDEyMTl9.it2WWl25dqRMI5_Rl16cxwKvFARxkqKStZRuA8TaaJY" -F file="@/C:/avatars/avatar-angelina.jpg" http://localhost:4000/api/files/avatar
+
+curl -i -H 'Accept: application/json' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU1MjNlNDJjN2NmODAyZjRlMDBhMTMiLCJlbWFpbCI6InVzZXJOZXcyNUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNjM5MDYzLCJleHAiOjE2ODM2Mzk2NjN9.G7vOlkOH7r7nS1shd9EB5Uh5zQ9Jo-FDCRn2YpFoTC0" -F file="@/C:/avatars/avatar-max.jpg" http://localhost:4000/api/files/image/2
+

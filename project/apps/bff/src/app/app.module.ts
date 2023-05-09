@@ -7,6 +7,7 @@ import { PostController } from './post.controller';
 import { PostsController } from './posts.controller';
 import { LikesController } from './likes.controller';
 import { CommentsController } from './comments.controller';
+import { UploaderController } from './uploader.controller';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { CommentsController } from './comments.controller';
     PostController,
     PostsController,
     LikesController,
-    CommentsController
+    CommentsController,
+    UploaderController
   ],
   providers: [CheckAuthGuard],
 })
