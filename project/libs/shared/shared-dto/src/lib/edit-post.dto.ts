@@ -10,7 +10,7 @@ export class EditPostDto {
   @ApiProperty({
     description: 'Указывается основное содержимое публикации'
   })
-  public content: string;
+  public content?: string;
 
   @ApiProperty({
     description: 'Список тегов к публикации'

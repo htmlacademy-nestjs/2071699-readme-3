@@ -5,7 +5,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { EditingService } from './editing.service';
 import { RepostRdo } from './rdo/repost.rdo';
 import { PostValidationPipe } from '@project/shared/shared-pipes';
-import { contentValidationSchema } from '@project/shared/shared-joi';
+import { contentEditValidationSchema, contentValidationSchema } from '@project/shared/shared-joi';
 import { CreatePostDto, EditPostDto } from '@project/shared/shared-dto';
 import { SubscribersService } from '../subscribers/subscribers.service';
 import { RabbitRPC } from '@golevelup/nestjs-rabbitmq';
@@ -50,6 +50,7 @@ export class EditingController {
     description: 'Edit post'
   })
   @Patch('edit/:id')
+  @UsePipes(new PostValidationPipe(contentEditValidationSchema))
   public async edit(@Param('id') id: number, @Body() dto: EditPostDto) {
 
     const existPost = await this.editService.updatePostId(id, dto);

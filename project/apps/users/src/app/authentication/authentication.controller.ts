@@ -99,7 +99,12 @@ export class AuthenticationController {
   public async getPostsAndNotify(@Req() { user: payload }: RequestWithTokenPayload) {
     const {sub, email} = payload;
     const lastNotifyDate = await this.authService.findNotifyByUser(sub);
-    const listPosts = await this.postService.geNewtPosts(lastNotifyDate.dateNotify);
+    let dateNotify = new Date(Date.UTC(1900, 0, 1));
+    if (lastNotifyDate)
+    {
+       dateNotify = lastNotifyDate.dateNotify;
+    }
+    const listPosts = await this.postService.geNewtPosts(dateNotify);
 
     const currentDate = new Date();
     await this.notifyService.notifyNewPosts({userId: sub, email, posts:listPosts, dateSend: currentDate.toDateString() })

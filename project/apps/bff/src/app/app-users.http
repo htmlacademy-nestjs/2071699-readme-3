@@ -1,4 +1,4 @@
-# Create a new user
+# 1.1. Регистрация новых пользователей.
 POST http://localhost:4000/api/users/register HTTP/1.1
 Content-Type: application/json
 
@@ -7,22 +7,25 @@ Content-Type: application/json
   "userName": "UserNew",
   "password": "1234567"
 }
+###
+###Загрузка аватара для публикации в блоге.
+###curl -i -H 'Accept: application/json' -H "Authorization: Bearer TOKEN" -F file="@/C:/avatars/avatar-angelina.jpg" http://localhost:4000/api/files/avatar
 
 ###
-# Login user by email and password
+# 1.2. Авторизация пользователей
 POST http://localhost:4000/api/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user66@notfound.local",
+  "email": "user@notfound.local",
   "password": "1234567"
 }
 
 
 ###
-# Get user by ID
-GET http://localhost:4000/api/users/6454b277f6a8413b8a2704b9 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODM0ODM4MjgsImV4cCI6MTY4MzQ4NDQyOH0.YHr-0TAhUXXNLihDnjbuSot0R1A5NDzsuNw4RhUAnm4
+# 1.18. Получение детальной информации о пользователе.
+GET http://localhost:4000/api/users/6457fa99e553a623fd39d3ff HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDVhNTEyMDdiYTA0M2ZmZGFiYTA1MjQiLCJlbWFpbCI6InVzZXI2NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNjQ3NjMxLCJleHAiOjE2ODM2NDgyMzF9.xhcggCPFDurqgvctmeTBmg0i6wL4bfcNMP5GCcxliIA
 ###
 
 
@@ -32,41 +35,42 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N
 
 ###
 
-# Change password
+# 1.19. Смена пароля пользователя.
 POST http://localhost:4000/api/users/changepassword HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU0YjI3N2Y2YTg0MTNiOGEyNzA0YjkiLCJlbWFpbCI6InVzZXJOZXcyQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6InVzZXIiLCJ1c2VyTmFtZSI6IlVzZXJOZXciLCJpYXQiOjE2ODMzNjQ3OTAsImV4cCI6MTY4MzM2NTM5MH0.gRRNF6NHjqJ5jNU1ch69P9qU2C4-d53bG0AqeL68RS8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDVhNTEyMDdiYTA0M2ZmZGFiYTA1MjQiLCJlbWFpbCI6InVzZXI2NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNjQ3NTgwLCJleHAiOjE2ODM2NDgxODB9.9TnEVX3RWuOsdKQanO_2AuNgvqtdi-y5D4_SFr6ceoM
 Content-Type: application/json
 
 {
-  "currentPassword": "123456789",
-  "newPassword": "12345678910"
+  "currentPassword": "1234567",
+  "newPassword": "12345678"
 }
 
 ###
 
-# Create a new subscription
+# 1.20. Подписка на обновления других пользователей.
 POST http://localhost:4000/api/users/subscription/create HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU1MjNlNDJjN2NmODAyZjRlMDBhMTMiLCJlbWFpbCI6InVzZXJOZXcyNUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNDgyOTE5LCJleHAiOjE2ODM0ODM1MTl9.T-yxWicUPqwY4SfnOs7tUI8fsAfBKFpWqO0vpEYNjkc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDVhNTEyMDdiYTA0M2ZmZGFiYTA1MjQiLCJlbWFpbCI6InVzZXI2NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNjQ3NjMxLCJleHAiOjE2ODM2NDgyMzF9.xhcggCPFDurqgvctmeTBmg0i6wL4bfcNMP5GCcxliIA
 Content-Type: application/json
 
 {
-  "userSubscriptionId": "6454b277f6a8413b8a2704b9"
+  "userSubscriptionId": "6457fa99e553a623fd39d3ff"
 }
 
 ###
 
-# Delete subscription by UserID
+# Отмена подписки на других пользователей.
 DELETE  http://localhost:4000/api/users/subscription/delete HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU1MjNlNDJjN2NmODAyZjRlMDBhMTMiLCJlbWFpbCI6InVzZXJOZXcyNUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNDgzODA0LCJleHAiOjE2ODM0ODQ0MDR9.7sicweE9LYk_hKA5KxX84Zk5FTYyWL_D3EIaqcBY56U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDVhNTEyMDdiYTA0M2ZmZGFiYTA1MjQiLCJlbWFpbCI6InVzZXI2NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNjQ3NjMxLCJleHAiOjE2ODM2NDgyMzF9.xhcggCPFDurqgvctmeTBmg0i6wL4bfcNMP5GCcxliIA
 Content-Type: application/json
 
 {
-  "userSubscriptionId": "6454b277f6a8413b8a2704b9"
+  "userSubscriptionId": "6457fa99e553a623fd39d3ff"
 }
 ###
-# Get new posts
+# 1.16. Рассылка почтовых уведомлений на email о появлении новых публикаций.
 GET http://localhost:4000/api/users/notify/newposts HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDU1MjNlNDJjN2NmODAyZjRlMDBhMTMiLCJlbWFpbCI6InVzZXJOZXcyNUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNTM2MTkyLCJleHAiOjE2ODM1MzY3OTJ9.hAcUf2pohvCRvD4QSnbNYPpglqNzdNDtyh_c47rM3qY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDVhNTEyMDdiYTA0M2ZmZGFiYTA1MjQiLCJlbWFpbCI6InVzZXI2NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiJ1c2VyIiwidXNlck5hbWUiOiJVc2VyTmV3IiwiaWF0IjoxNjgzNjQ4NjcwLCJleHAiOjE2ODM2NDkyNzB9.z7fedz1nk4TnsdMjduzeNTvGLMYfY3O9g0G_YqjkJQA
 Content-Type: application/json
 
 ###
+
