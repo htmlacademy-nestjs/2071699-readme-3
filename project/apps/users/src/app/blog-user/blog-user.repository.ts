@@ -45,4 +45,10 @@ export class BlogUserRepository implements CRUDRepository<BlogUserEntity, string
       .findByIdAndUpdate(id, item.toObject(), {new: true})
       .exec();
   }
+
+  public async updateAvatar(id: string, fileId: string): Promise<User> {
+    return this.blogUserModel
+      .findByIdAndUpdate(id, {avatar: fileId}, {new: true})
+      .exec();
+  }
 }

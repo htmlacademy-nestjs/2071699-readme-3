@@ -8,6 +8,8 @@ export class FileEntity implements Entity<FileEntity>, File {
   public originalName: string;
   public path: string;
   public size: number;
+  public appName: string;
+  public objectId: string;
 
   constructor(file: File) {
     this.fillEntity(file);
@@ -20,6 +22,8 @@ export class FileEntity implements Entity<FileEntity>, File {
     this.originalName = entity.originalName;
     this.path = entity.path;
     this.size = entity.size;
+    this.appName = entity.appName;
+    this.objectId = entity.objectId;
   }
 
   public toObject(): FileEntity {

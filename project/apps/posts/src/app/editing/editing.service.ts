@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BlogPostRepository } from '../blog-post/blog-post.repository';
 import { BlogTagRepository } from '../blog-tag/blog-tag.repository';
-import { POST_NOT_FOUND, Post, PostState } from '@project/shared/shared-types';
+import { POST_NOT_FOUND, Post, PostState, PostType } from '@project/shared/shared-types';
 import { BlogPostEntity } from '../blog-post/blog-post.entity';
 import { CreatePostDto, EditPostDto } from '@project/shared/shared-dto';
 import { BlogTagService } from '../blog-tag/blog-tag.service';
@@ -85,5 +85,17 @@ export class EditingService {
         return this.blogPostRepository
           .create(postEntity);
       }
+
+
+
+      public async changeImg(postId: string, fileId: string) {
+        const existPost = await this.blogPostRepository.findById(Number(postId));
+        if (existPost.postType === PostType.Photo)
+        {
+          return this.blogPostRepository.updateImg(Number(postId), fileId);
+        }
+        return null
+      }
+
 
 }

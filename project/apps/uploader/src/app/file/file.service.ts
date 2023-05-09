@@ -46,7 +46,8 @@ export class FileService {
     };
   }
 
-  public async saveFile(file: Express.Multer.File) {
+  public async saveFile(file: Express.Multer.File, appName: string, objectId: string) {
+
     const writedFile = await this.writeFile(file);
     const newFile = new FileEntity({
       size: file.size,
@@ -54,8 +55,14 @@ export class FileService {
       mimetype: file.mimetype,
       originalName: file.originalname,
       path: writedFile.path,
+      appName: appName,
+      objectId: objectId
     });
 
+    const existsFile = await this.fileRepository.findByObjectId(objectId);
+    if (existsFile){
+      return this.fileRepository.update(existsFile.id, newFile)
+    }
     return this.fileRepository.create(newFile);
   }
 
