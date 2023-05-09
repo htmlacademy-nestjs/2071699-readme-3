@@ -14,7 +14,7 @@ datasource db {
 model Post {
   postId            Int      @id @default(autoincrement()) @map("post_id")
   title             String?  @default("")
-  content           String
+  content           String?
   tags              Tag[]
   addInfo           String?  @map("add_info")
   postType          String   @map("post_type")
@@ -27,8 +27,8 @@ model Post {
   publishAt         DateTime @updatedAt @map("publish_at")
   comments          Comment[]
   feed              Feed[]
-  commentsCount     Int      @default(0) @map("comments_count")
-  likesCount        Int      @default(0) @map("likes_count")
+  commentsCount     Int?      @default(0) @map("comments_count")
+  likesCount        Int?      @default(0) @map("likes_count")
   likes             Like[]
   @@map("posts")
 }

@@ -6,7 +6,7 @@ import { Comment } from './comment.interface';
 export interface Post {
   _id?: string;
   title?: string;
-  content: string
+  content?: string
   addInfo?: string;
   tags?: Tag[];
   postType: PostType;
@@ -16,7 +16,7 @@ export interface Post {
   originUserId?: string;
   originPostId?: number;
   comments?: Comment[];
-  commentsCount: number;
-  likesCount: number;
+  commentsCount?: number;
+  likesCount?: number;
   createdAt?: Date;
 }

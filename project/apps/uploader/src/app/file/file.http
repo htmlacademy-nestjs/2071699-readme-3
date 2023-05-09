@@ -11,7 +11,8 @@ Content-Disposition: form-data; name="file"; filename="file.http"
 
 ### curl -i -F file="@/C:/avatars/avatar-angelina.jpg" http://localhost:3337/api/files/upload/avatar/64288cdee77d1de6e8d15b7e
 
-### curl -i -F file="@/C:/avatars/avatar-max.jpg" http://localhost:3337/api/files/upload/image/1
+1.7. Загрузка изображений для публикации в блоге.
+### curl -i -F file="@/C:/avatars/avatar-max.jpg" http://localhost:3337/api/files/upload/image/5
 
 ###
 

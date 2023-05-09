@@ -1,4 +1,4 @@
-# Create a new post
+# 1.8. Комментирование публикаций в блоге
 POST http://localhost:3335/api/comment/create/15 HTTP/1.1
 Content-Type: application/json
 
@@ -9,14 +9,14 @@ Content-Type: application/json
 
 ###
 
-# Get post by ID
+# Список комментариев к блогу
 GET http://localhost:3335/api/comment/1?&limit=5&page=1 HTTP/1.1
 Content-Type: application/json
 ###
 
 
 
-# Delete comment by postID
+# Удаление комментария
 DELETE  http://localhost:3335/api/comment/delete/1 HTTP/1.1
 Content-Type: application/json
 
