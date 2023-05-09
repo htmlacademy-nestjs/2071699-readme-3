@@ -3,6 +3,7 @@ import * as Joi from 'joi';
 
 const DEFAULT_PORT = 3000;
 const DEFAULT_MONGO_PORT = 27017;
+const DEFAULT_RABBIT_PORT = 5672;
 
 export interface UploaderConfig {
   serveRoot: string;
@@ -16,10 +17,19 @@ export interface UploaderConfig {
     name: string;
     password: string;
     authBase: string;
-  }
+  },
+   rabbit: {
+    host: string;
+    password: string;
+    user: string;
+    queue: string;
+    exchange: string;
+    port: number;
+  },
 }
 
 export default registerAs('application', (): UploaderConfig => {
+  console.log(process.env.MONGO_DB);
     const config: UploaderConfig = {
     serveRoot: process.env.SERVE_ROOT,
     environment: process.env.NODE_ENV,
@@ -32,6 +42,14 @@ export default registerAs('application', (): UploaderConfig => {
       user: process.env.MONGO_USER,
       password: process.env.MONGO_PASSWORD,
       authBase: process.env.MONGO_AUTH_BASE,
+    },
+    rabbit: {
+      host: process.env.RABBIT_HOST,
+      password: process.env.RABBIT_PASSWORD,
+      port: parseInt(process.env.RABBIT_PORT ?? DEFAULT_RABBIT_PORT.toString(), 10),
+      user: process.env.RABBIT_USER,
+      queue: process.env.RABBIT_QUEUE,
+      exchange: process.env.RABBIT_EXCHANGE,
     }
   };
 
@@ -50,6 +68,14 @@ export default registerAs('application', (): UploaderConfig => {
         user: Joi.string().required(),
         password: Joi.string().required(),
         authBase: Joi.string().required(),
+      }),
+      rabbit: Joi.object({
+        host: Joi.string().valid().hostname().required(),
+        password: Joi.string().required(),
+        port: Joi.number().port().default(DEFAULT_RABBIT_PORT),
+        user: Joi.string().required(),
+        queue: Joi.string().required(),
+        exchange: Joi.string().required(),
       })
   });
 

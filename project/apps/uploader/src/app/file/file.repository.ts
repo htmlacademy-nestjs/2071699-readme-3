@@ -21,4 +21,13 @@ export class FileRepository {
       .findOne({ _id: id})
       .exec();
   }
+
+  public async findByObjectId(id: string): Promise<File | null> {
+    return this.fileModel
+      .findOne({ objectId: id})
+      .exec();
+  }
+  public async update(id:string, item: FileEntity): Promise<File | null> {
+    return this.fileModel.findByIdAndUpdate(id, item.toObject(), {new: true}).exec();
+  }
 }

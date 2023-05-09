@@ -8,12 +8,13 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '@project/shared/shared-pipes';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { NotifyService } from '../notify/notify.service';
-import { RequestWithTokenPayload, RequestWithUser } from '@project/shared/shared-types';
+import { RabbitRouting, RequestWithTokenPayload, RequestWithUser } from '@project/shared/shared-types';
 import { LocalAuthGuard } from './guards/local-auth-guard';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { PostService } from '../posts/posts.service';
 import { UserInfoRdo } from './rdo/user-info.rdo';
 import { UsersSubscriptionsService } from '../users-subscriptions/users-subscriptions.service';
+import { RabbitRPC } from '@golevelup/nestjs-rabbitmq';
 
 @ApiTags('authentication')
 @Controller('auth')
@@ -123,6 +124,16 @@ export class AuthenticationController {
       countPosts: countPosts,
       countSubscriptions: countSubscriptions.length}
     return userInfo;
+  }
+
+  @RabbitRPC({
+    exchange: 'readme.uploader',
+    routingKey: RabbitRouting.PostAvatars,
+    queue: 'readme.uploader.avatar',
+  })
+  public async postAvatar({userId, fileId}) {
+    const userUpd = await this.authService.changeAvatar(userId, fileId)
+    return fillObject(UserRdo, userUpd);
   }
 
 }

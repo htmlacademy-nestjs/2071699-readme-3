@@ -9,7 +9,10 @@ Content-Disposition: form-data; name="file"; filename="file.http"
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ###
 
-### curl -i -F file="@file.http" http://localhost:3333/api/files/upload
+### curl -i -F file="@/C:/avatars/avatar-angelina.jpg" http://localhost:3337/api/files/upload/avatar/64288cdee77d1de6e8d15b7e
+
+### curl -i -F file="@/C:/avatars/avatar-max.jpg" http://localhost:3337/api/files/upload/image/1
+
 ###
 
 # Get file by ID

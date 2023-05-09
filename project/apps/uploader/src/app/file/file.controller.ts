@@ -8,6 +8,8 @@ import { UploadedFileRdo } from './rdo/uploaded-file.rdo';
 import { uploaderConfig } from '@project/config/config-uploader';
 import { ConfigType } from '@nestjs/config';
 import { MongoidValidationPipe } from '@project/shared/shared-pipes';
+import { AvatarsService } from '../avatars/avatars.service';
+import { ImgPostService } from '../img-post/img-post.service';
 
 @Controller('files')
 export class FileController {
@@ -17,16 +19,28 @@ export class FileController {
 
     @Inject(uploaderConfig.KEY)
     private readonly applicationConfig: ConfigType<typeof uploaderConfig>,
+    private readonly avatarsService: AvatarsService,
+    private readonly imgPostService: ImgPostService,
   ) {}
 
-  @Post('upload')
+  @Post('upload/avatar/:userId')
   @UseInterceptors(FileInterceptor('file'))
-  public async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    const newFile = await this.fileService.saveFile(file);
-
+  public async uploadAvatar(@UploadedFile() file: Express.Multer.File, @Param('userId', MongoidValidationPipe) userId: string) {
+    const newFile = await this.fileService.saveFile(file, 'avatar', userId);
+    await this.avatarsService.postAvatars(userId, newFile.id);
     const path = `${this.applicationConfig.serveRoot}${newFile.path}`;
     return fillObject(UploadedFileRdo, Object.assign(newFile, { path }));
   }
+
+  @Post('upload/image/:postId')
+  @UseInterceptors(FileInterceptor('file'))
+  public async uploadImg(@UploadedFile() file: Express.Multer.File, @Param('postId') postId: string) {
+    const newFile = await this.fileService.saveFile(file, 'image', postId);
+    await this.imgPostService.postImgPost(postId, newFile.id);
+    const path = `${this.applicationConfig.serveRoot}${newFile.path}`;
+    return fillObject(UploadedFileRdo, Object.assign(newFile, { path }));
+  }
+
 
   @Get(':fileId')
   public async show(@Param('fileId', MongoidValidationPipe) fileId: string) {

@@ -1,5 +1,20 @@
 version: '3.5'
 services:
+  readme.uploader.rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: readme.uploader.rabbitmq
+    ports:
+      - '1086:15672'
+      - '5674:5672'
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: test
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   readme.uploader.mongo:
     image: mongo
     restart: always

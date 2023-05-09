@@ -5,4 +5,6 @@ export interface File {
   mimetype: string;
   hashName: string;
   path: string;
+  appName: string;
+  objectId: string;
 }

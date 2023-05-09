@@ -8,6 +8,8 @@ import { PostValidationPipe } from '@project/shared/shared-pipes';
 import { contentValidationSchema } from '@project/shared/shared-joi';
 import { CreatePostDto, EditPostDto } from '@project/shared/shared-dto';
 import { SubscribersService } from '../subscribers/subscribers.service';
+import { RabbitRPC } from '@golevelup/nestjs-rabbitmq';
+import { RabbitRouting } from '@project/shared/shared-types';
 
 @ApiTags('editing')
 @Controller('post')
@@ -77,5 +79,18 @@ export class EditingController {
     const existPost = await this.editService.repost(id, body.newUserId);
     return fillObject(RepostRdo, existPost);
   }
+
+  @RabbitRPC({
+    exchange: 'readme.uploader',
+    routingKey: RabbitRouting.PostImg,
+    queue: 'readme.uploader.posts',
+  })
+  public async postImage({postId, fileId}) {
+    console.log('postImage')
+    const postUpd = await this.editService.changeImg(postId, fileId)
+    console.log('postUpd', postUpd)
+    return fillObject(PostRdo, postUpd);
+  }
+
 }
 

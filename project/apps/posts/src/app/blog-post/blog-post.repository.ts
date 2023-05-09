@@ -218,5 +218,25 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
     }
 
 
+  public async updateImg(postId: number, fileId: string): Promise<Post | null> {
+     const changePost = await this.prisma.post.update({
+        where: { postId },
+        data: { content: fileId },
+        include: {
+          tags: true,
+          comments: true,
+          likes: true
+        }
+      })
+      const updPost = {
+        ...changePost,
+        postType: PostType[changePost.postType],
+        postState: PostState[changePost.postState]
+      };
+
+      return updPost;
+  }
+
+
   }
 

@@ -91,6 +91,16 @@ export class AuthenticationService {
     return this.blogUserRepository.update(userId, userEntity);
   }
 
+  public async changeAvatar(userId: string, fileId: string) {
+
+    const existUser = await this.blogUserRepository.findById(userId);
+    if (!existUser)   {
+      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+    }
+
+    return this.blogUserRepository.updateAvatar(userId, fileId);
+  }
+
 
   public async createOrUpdateNotify(userId: string, dateNotify: Date) {
     const notifyEntity = await new NotifyDateEntity({userId, dateNotify})

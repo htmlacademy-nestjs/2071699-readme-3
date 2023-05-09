@@ -3,5 +3,7 @@ export enum RabbitRouting {
   GetCountPosts = 'posts.getCountPostsUser',
   GeNewtPosts = 'posts.getNewPosts',
   AddNotifyPosts = 'notify.addNotifyPosts',
-  PostForSuscribers = 'users.postForSuscribers'
+  PostForSuscribers = 'users.postForSuscribers',
+  PostAvatars = 'users.postAvatars',
+  PostImg = 'posts.postImg'
 }

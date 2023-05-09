@@ -31,6 +31,16 @@ export class FileModel extends Document implements File {
     required: true,
   })
   public size: number;
+
+  @Prop({
+    required: true,
+  })
+  public appName: string;
+
+  @Prop({
+    required: true,
+  })
+  public objectId: string;
 }
 
 export const FileSchema = SchemaFactory.createForClass(FileModel);
