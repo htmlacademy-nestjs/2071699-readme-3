@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { CRUDRepository } from '@project/util/util-types';
+import { CRDRepository } from '@project/util/util-types';
 import { CommentEntity } from './comment.entity';
 import { Comment, PostState } from '@project/shared/shared-types';
 import { PrismaService } from '../prisma/prisma.service';
 import { CommentQuery } from '@project/shared/shared-query';
 
 @Injectable()
-export class CommentRepository implements CRUDRepository<CommentEntity, number, Comment> {
+export class CommentRepository implements CRDRepository<CommentEntity, number, Comment> {
   constructor(private readonly prisma: PrismaService) {}
 
   public async create(item: CommentEntity): Promise<Comment> {
@@ -80,7 +80,4 @@ export class CommentRepository implements CRUDRepository<CommentEntity, number, 
     return true
   }
 
-  public update(_id: number, _item: CommentEntity): Promise<Comment> {
-    return Promise.resolve(undefined);
-  }
 }

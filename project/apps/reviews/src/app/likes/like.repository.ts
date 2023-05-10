@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CRUDRepository } from '@project/util/util-types';
+import { CRDRepository } from '@project/util/util-types';
 import { LikeEntity } from './like.entity';
 import { Like, PostState } from '@project/shared/shared-types';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
-export class LikeRepository implements CRUDRepository<LikeEntity, number, Like> {
+export class LikeRepository implements CRDRepository<LikeEntity, number, Like> {
   constructor(private readonly prisma: PrismaService) {}
 
   public async create(item: LikeEntity): Promise<Like> {
@@ -78,7 +78,4 @@ export class LikeRepository implements CRUDRepository<LikeEntity, number, Like> 
   }
 
 
-  public update(_id: number, _item: LikeEntity): Promise<Like> {
-    return Promise.resolve(undefined);
-  }
 }

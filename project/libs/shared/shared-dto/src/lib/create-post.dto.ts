@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { PostType, Comment } from "@project/shared/shared-types";
 import { TagValidateTitle } from "@project/shared/shared-validate";
 import { ArrayMaxSize, MaxLength, MinLength, Validate } from "class-validator";
-import { MAX_TAGS_COUNT, MAX_TAG_LENGTH, MIN_TAG_LENGTH } from "./dto.constant";
+import { TagValidate} from "./dto.constant";
 
 export class CreatePostDto {
   @ApiProperty({
@@ -18,9 +18,9 @@ export class CreatePostDto {
   @ApiProperty({
     description: 'Список тегов к публикации'
   })
-  @ArrayMaxSize(MAX_TAGS_COUNT)
-  @MinLength(MIN_TAG_LENGTH, {each: true,})
-  @MaxLength(MAX_TAG_LENGTH, {each: true,})
+  @ArrayMaxSize(TagValidate.MaxTagsCount)
+  @MinLength(TagValidate.MinTagLength, {each: true,})
+  @MaxLength(TagValidate.MaxTagsCount, {each: true,})
   @Validate(TagValidateTitle, {each: true,})
   public tags?: string[];
 
