@@ -2,7 +2,7 @@ import { ConflictException, Inject, Injectable, NotFoundException, UnauthorizedE
 import { BlogUserRepository } from '../blog-user/blog-user.repository';
 import { CreateUserDto, LoginUserDto, PasswordDto } from '@project/shared/shared-dto';
 import { UserRole, User } from '@project/shared/shared-types';
-import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from './authentication.constant';
+import { AuthErrorMsg } from './authentication.constant';
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
 import { JwtService  } from '@nestjs/jwt';
 import { jwtConfig } from '@project/config/config-users';
@@ -36,7 +36,7 @@ export class AuthenticationService {
       .findByEmail(email);
 
     if (existUser) {
-      throw new ConflictException(AUTH_USER_EXISTS);
+      throw new ConflictException(AuthErrorMsg.UserExists);
     }
 
     const userEntity = await new BlogUserEntity(blogUser)
@@ -51,12 +51,12 @@ export class AuthenticationService {
     const existUser = await this.blogUserRepository.findByEmail(email);
 
     if (!existUser) {
-      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+      throw new NotFoundException(AuthErrorMsg.NotFound);
     }
 
     const blogUserEntity = new BlogUserEntity(existUser);
     if (!await blogUserEntity.comparePassword(password)) {
-      throw new UnauthorizedException(AUTH_USER_PASSWORD_WRONG);
+      throw new UnauthorizedException(AuthErrorMsg.PasswordWrong);
     }
 
     return blogUserEntity.toObject();
@@ -95,7 +95,7 @@ export class AuthenticationService {
 
     const existUser = await this.blogUserRepository.findById(userId);
     if (!existUser)   {
-      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+      throw new NotFoundException(AuthErrorMsg.NotFound);
     }
 
     return this.blogUserRepository.updateAvatar(userId, fileId);
